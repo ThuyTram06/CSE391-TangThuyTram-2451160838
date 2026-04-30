@@ -205,3 +205,138 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 * Form hoạt động đúng chuẩn với phương thức GET
 
 → Website ưu tiên UI/UX và hiệu năng hơn là semantic HTML
+# PHẦN C — SUY LUẬN (20 điểm)
+## Câu C1 (10đ) — Thiết kế cấu trúc
+<!DOCTYPE html>
+<html lang="vi"> <!-- html lang để xác định ngôn ngữ -->
+<head>
+    <meta charset="UTF-8"> <!-- charset để hiển thị tiếng Việt đúng -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- responsive -->
+    <title>Chi tiết sản phẩm</title> <!-- tiêu đề trang -->
+</head>
+
+<body>
+
+<header> <!-- header: phần đầu trang -->
+    <h1>ShopTLU</h1> <!-- tên website -->
+    
+    <nav> <!-- nav: điều hướng chính -->
+        <a href="#">Trang chủ</a>
+        <a href="#">Danh mục</a>
+        <a href="#">Liên hệ</a>
+    </nav>
+</header>
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb"> <!-- nav: điều hướng breadcrumb -->
+    <ol> <!-- ol: có thứ tự cấp bậc -->
+        <li><a href="#">Trang chủ</a></li>
+        <li><a href="#">Điện thoại</a></li>
+        <li>iPhone 16</li>
+    </ol>
+</nav>
+
+<main> <!-- main: nội dung chính của trang -->
+
+    <!-- Khu vực sản phẩm -->
+    <section> <!-- section: nhóm nội dung sản phẩm -->
+        
+        <!-- Ảnh sản phẩm -->
+        <section> <!-- section: nhóm các ảnh -->
+            <h2>Hình ảnh sản phẩm</h2> <!-- heading cho section -->
+            
+            <figure> <!-- figure: chứa ảnh -->
+                <img src="#" alt="Ảnh 1"> <!-- ảnh + alt -->
+                <figcaption>Ảnh 1</figcaption> <!-- mô tả ảnh -->
+            </figure>
+
+            <figure>
+                <img src="#" alt="Ảnh 2">
+                <figcaption>Ảnh 2</figcaption>
+            </figure>
+
+            <figure>
+                <img src="#" alt="Ảnh 3">
+                <figcaption>Ảnh 3</figcaption>
+            </figure>
+
+            <figure>
+                <img src="#" alt="Ảnh 4">
+                <figcaption>Ảnh 4</figcaption>
+            </figure>
+
+            <figure>
+                <img src="#" alt="Ảnh 5">
+                <figcaption>Ảnh 5</figcaption>
+            </figure>
+        </section>
+
+        <!-- Thông tin sản phẩm -->
+        <article> <!-- article: nội dung độc lập (1 sản phẩm) -->
+            <h2>Tên sản phẩm</h2> <!-- tên -->
+            <p>Giá: <strong>...</strong></p> <!-- giá -->
+            <p>Đánh giá: ⭐⭐⭐⭐⭐</p> <!-- rating -->
+            <p>Mô tả sản phẩm...</p> <!-- mô tả -->
+        </article>
+
+    </section>
+
+    <!-- Bảng thông số -->
+    <section> <!-- section: nhóm thông số kỹ thuật -->
+        <h2>Thông số kỹ thuật</h2>
+        
+        <table> <!-- table: dữ liệu dạng bảng -->
+            <thead> <!-- header bảng -->
+                <tr>
+                    <th>Thuộc tính</th>
+                    <th>Giá trị</th>
+                </tr>
+            </thead>
+            <tbody> <!-- thân bảng -->
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+            </tbody>
+            <tfoot> <!-- footer bảng -->
+                <tr>
+                    <td colspan="2">Thông tin tham khảo</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <!-- Đánh giá / bình luận -->
+    <section> <!-- section: nhóm review -->
+        <h2>Đánh giá</h2>
+
+        <article> <!-- article: mỗi bình luận là 1 nội dung độc lập -->
+            <p>Người dùng A: Sản phẩm tốt</p>
+        </article>
+
+        <article>
+            <p>Người dùng B: Đáng mua</p>
+        </article>
+    </section>
+
+</main>
+
+<!-- Sidebar -->
+<aside> <!-- aside: nội dung phụ -->
+    <h2>Sản phẩm tương tự</h2>
+
+    <article> <!-- mỗi sản phẩm -->
+        <p>Sản phẩm 1</p>
+    </article>
+
+    <article>
+        <p>Sản phẩm 2</p>
+    </article>
+</aside>
+
+<footer> <!-- footer: cuối trang -->
+    <p>© 2026 ShopTLU</p>
+</footer>
+
+</body>
+</html>
