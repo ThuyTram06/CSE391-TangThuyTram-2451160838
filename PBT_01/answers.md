@@ -207,6 +207,8 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 → Website ưu tiên UI/UX và hiệu năng hơn là semantic HTML
 # PHẦN C — SUY LUẬN (20 điểm)
 ## Câu C1 (10đ) — Thiết kế cấu trúc
+
+```html
 <!DOCTYPE html>
 <html lang="vi"> <!-- html lang để xác định ngôn ngữ -->
 <head>
@@ -228,25 +230,25 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 </header>
 
 <!-- Breadcrumb -->
-<nav aria-label="breadcrumb"> <!-- nav: điều hướng breadcrumb -->
-    <ol> <!-- ol: có thứ tự cấp bậc -->
+<nav aria-label="breadcrumb"> <!-- nav vì đây là điều hướng -->
+    <ol> <!-- ol vì breadcrumb có thứ tự -->
         <li><a href="#">Trang chủ</a></li>
         <li><a href="#">Điện thoại</a></li>
         <li>iPhone 16</li>
     </ol>
 </nav>
 
-<main> <!-- main: nội dung chính của trang -->
+<main> <!-- main: nội dung chính -->
 
     <!-- Khu vực sản phẩm -->
     <section> <!-- section: nhóm nội dung sản phẩm -->
         
         <!-- Ảnh sản phẩm -->
-        <section> <!-- section: nhóm các ảnh -->
-            <h2>Hình ảnh sản phẩm</h2> <!-- heading cho section -->
+        <section> <!-- section: nhóm ảnh -->
+            <h2>Hình ảnh sản phẩm</h2>
             
             <figure> <!-- figure: chứa ảnh -->
-                <img src="#" alt="Ảnh 1"> <!-- ảnh + alt -->
+                <img src="#" alt="Ảnh 1">
                 <figcaption>Ảnh 1</figcaption> <!-- mô tả ảnh -->
             </figure>
 
@@ -273,32 +275,32 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 
         <!-- Thông tin sản phẩm -->
         <article> <!-- article: nội dung độc lập (1 sản phẩm) -->
-            <h2>Tên sản phẩm</h2> <!-- tên -->
-            <p>Giá: <strong>...</strong></p> <!-- giá -->
-            <p>Đánh giá: ⭐⭐⭐⭐⭐</p> <!-- rating -->
-            <p>Mô tả sản phẩm...</p> <!-- mô tả -->
+            <h2>Tên sản phẩm</h2>
+            <p>Giá: <strong>...</strong></p> <!-- strong để nhấn mạnh giá -->
+            <p>Đánh giá: ⭐⭐⭐⭐⭐</p>
+            <p>Mô tả sản phẩm...</p>
         </article>
 
     </section>
 
     <!-- Bảng thông số -->
-    <section> <!-- section: nhóm thông số kỹ thuật -->
+    <section> <!-- section: nhóm thông số -->
         <h2>Thông số kỹ thuật</h2>
         
         <table> <!-- table: dữ liệu dạng bảng -->
-            <thead> <!-- header bảng -->
+            <thead> <!-- tiêu đề bảng -->
                 <tr>
                     <th>Thuộc tính</th>
                     <th>Giá trị</th>
                 </tr>
             </thead>
-            <tbody> <!-- thân bảng -->
+            <tbody> <!-- nội dung chính -->
                 <tr>
                     <td>...</td>
                     <td>...</td>
                 </tr>
             </tbody>
-            <tfoot> <!-- footer bảng -->
+            <tfoot> <!-- tổng kết -->
                 <tr>
                     <td colspan="2">Thông tin tham khảo</td>
                 </tr>
@@ -306,11 +308,11 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
         </table>
     </section>
 
-    <!-- Đánh giá / bình luận -->
-    <section> <!-- section: nhóm review -->
+    <!-- Đánh giá -->
+    <section> <!-- section: nhóm bình luận -->
         <h2>Đánh giá</h2>
 
-        <article> <!-- article: mỗi bình luận là 1 nội dung độc lập -->
+        <article> <!-- mỗi comment là 1 article -->
             <p>Người dùng A: Sản phẩm tốt</p>
         </article>
 
@@ -325,7 +327,7 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 <aside> <!-- aside: nội dung phụ -->
     <h2>Sản phẩm tương tự</h2>
 
-    <article> <!-- mỗi sản phẩm -->
+    <article>
         <p>Sản phẩm 1</p>
     </article>
 
@@ -340,3 +342,13 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 
 </body>
 </html>
+```
+## Câu C2 (10đ) — So sánh & Tranh luận
+
+Quan điểm “dùng `<div>` cho mọi thứ rồi thêm class là đủ” nghe có vẻ tiện, nhưng về mặt kỹ thuật lại gây nhiều hạn chế. Thứ nhất, **SEO (Search Engine Optimization)**: các công cụ tìm kiếm như Google dựa vào cấu trúc semantic HTML để hiểu nội dung trang. Nếu toàn bộ đều là `<div>`, bot sẽ khó xác định đâu là tiêu đề chính, đâu là nội dung quan trọng, dẫn đến xếp hạng thấp hơn. Thứ hai, **Accessibility (khả năng truy cập)**: các thiết bị hỗ trợ như screen reader cần các thẻ như `<header>`, `<nav>`, `<main>`, `<article>` để đọc và điều hướng nội dung cho người khiếm thị. Nếu chỉ dùng `<div>`, trải nghiệm của người dùng này sẽ kém đi rõ rệt.
+
+Ví dụ cụ thể: một bài viết blog sử dụng `<article>` cho nội dung chính, `<header>` cho tiêu đề và `<nav>` cho menu sẽ giúp cả công cụ tìm kiếm lẫn screen reader hiểu cấu trúc ngay lập tức. Ngược lại, nếu tất cả đều là `<div class="...">`, cần thêm nhiều xử lý bổ sung mà vẫn không hiệu quả bằng semantic HTML.
+
+Tuy nhiên, không phải lúc nào `<div>` cũng sai. Trong thực tế, `<div>` rất phù hợp để làm **wrapper hoặc layout container** (ví dụ: chia cột, nhóm các phần tử để áp dụng CSS hoặc JavaScript). Vì vậy, cách đúng là kết hợp: dùng semantic HTML cho cấu trúc nội dung, và `<div>` cho mục đích trình bày.
+
+Tóm lại, semantic HTML không chỉ “đẹp code” mà còn mang lại lợi ích rõ ràng về SEO, accessibility và khả năng bảo trì lâu dài.
