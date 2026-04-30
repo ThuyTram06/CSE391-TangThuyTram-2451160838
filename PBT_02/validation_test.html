@@ -1,1 +1,49 @@
 
+```html id="validation_test_file"
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation Test</title>
+</head>
+<body>
+
+<h1>Test Validation</h1>
+
+<form>
+
+    <!-- Case 1 -->
+    <label>Required:</label>
+    <input type="text" required value="">
+    <br><br>
+
+    <!-- Case 2 -->
+    <label>Email:</label>
+    <input type="email" value="abc">
+    <br><br>
+
+    <!-- Case 3 -->
+    <label>Number:</label>
+    <input type="number" min="1" max="10" value="15">
+    <br><br>
+
+    <!-- Case 4 -->
+    <label>Pattern:</label>
+    <input type="text" pattern="[0-9]{10}" value="abc123">
+    <br><br>
+
+    <!-- Case 5 -->
+    <label>Password:</label>
+    <input type="password" minlength="8" value="123">
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>
+```
+
+
+
