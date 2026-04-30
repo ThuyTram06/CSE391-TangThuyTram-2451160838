@@ -149,44 +149,64 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 * **Lỗi 11:** Thiếu `lang="vi"`
 * **Lỗi 12:** Dùng `<h3>` sai cấp → đổi `<h2>`
 ## Bài B4 (15đ) — Phân tích trang web thật
-1. Phân tích Semantic HTML (tab Elements)
-* 3 thẻ semantic HTML5 tìm được:
-<header>
-→ Nằm ở phần đầu trang, chứa logo Shopee và thanh tìm kiếm
-<nav>
-→ Chứa menu điều hướng (Danh mục, Flash Sale, v.v.)
-<section>
-→ Dùng để chia các khu vực nội dung như:
-Sản phẩm nổi bật
-Flash sale
-Gợi ý hôm nay
-  
-**Các thẻ semantic như <header>, <nav>, <section> giúp trình duyệt và SEO hiểu cấu trúc trang tốt hơn**
+### 1. Phân tích Semantic HTML (tab Elements)
 
-* 2 điểm chưa dùng semantic tốt:
-Dùng quá nhiều <div> thay vì <article>
-→ Các sản phẩm nên dùng <article> nhưng Shopee dùng <div>
-Không dùng <main> rõ ràng
-→ Nội dung chính không được bao bởi <main>
-**Đây là lỗi phổ biến vì nhiều web ưu tiên CSS/JS hơn semantic**
+![Semantic Screenshot](screenshots/semantic.png)
 
-2. Phân tích Table
-* Table hiển thị:
-Thông tin sản phẩm (ví dụ: thông số, giá, hoặc đơn hàng)
-* Nhận xét:
-Có dùng <table> 
-Thường:
-* Không dùng <thead>
-* Không dùng <tbody>
-  -> Chỉ dùng <tr>, <td> để hiển thị nhanh
-**Table dùng để hiển thị dữ liệu dạng hàng & cột ()**
+### 3 thẻ semantic HTML5:
 
-3. Phân tích Form (ô tìm kiếm)
-* Form tìm kiếm:
-action: /search (hoặc URL tương tự)
-method: GET
-* Input sử dụng:
-<input type="text"> → nhập từ khóa
-<input type="hidden"> → dữ liệu ẩn
-<button> → submit
-**Form dùng để thu thập dữ liệu người dùng (tìm kiếm, login...) ()**
+* `<section>`
+  → Dùng để chia các khu vực nội dung như: sản phẩm nổi bật, gợi ý hôm nay.
+
+* `<header>`
+  → Đại diện phần đầu trang (logo, thanh tìm kiếm).
+
+* `<nav>`
+  → Khu vực menu điều hướng (danh mục sản phẩm, liên kết).
+
+### 2 điểm chưa dùng semantic tốt:
+
+* Dùng nhiều `<div>` thay vì `<article>` cho từng sản phẩm
+  → Làm giảm ý nghĩa nội dung và SEO.
+
+* Không sử dụng `<main>` rõ ràng
+  → Nội dung chính không được phân vùng semantic chuẩn.
+
+### 2. Phân tích Table
+
+![Table Screenshot](screenshots/table.png)
+
+### Table hiển thị nội dung:
+
+* Thông tin chi tiết sản phẩm (ví dụ: thương hiệu, xuất xứ, loại pin...)
+
+### Nhận xét:
+
+* Không sử dụng thẻ `<table>` thật
+* Không có `<thead>`, `<tbody>`
+
+→ Thay vào đó dùng nhiều `<div>` để giả lập bảng.
+
+### 3. Phân tích Form (ô tìm kiếm)
+
+![Form Screenshot](screenshots/form.png)
+
+### Thuộc tính form:
+
+* **action:** `/search`
+* **method:** `get`
+
+### Các input sử dụng:
+
+* `<input type="text">` → nhập từ khóa tìm kiếm
+* `<input type="hidden">` → dữ liệu ẩn
+* `<button type="submit">` → gửi form
+
+## Kết luận
+
+* Shopee có sử dụng một số thẻ semantic nhưng chưa tối ưu hoàn toàn
+* Lạm dụng `<div>` thay vì semantic HTML
+* Không dùng `<table>` cho dữ liệu dạng bảng
+* Form hoạt động đúng chuẩn với phương thức GET
+
+→ Website ưu tiên UI/UX và hiệu năng hơn là semantic HTML
