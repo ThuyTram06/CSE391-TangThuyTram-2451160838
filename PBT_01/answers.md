@@ -45,6 +45,7 @@
 * **Size:** Kích thước
 * **Time:** Thời gian
 * **Waterfall:** Timeline
+
 **Mã trạng thái của yêu cầu đầu tiên và Tổng thời gian tải trang**
   <img width="1915" height="939" alt="Screenshot 2026-04-28 225802" src="https://github.com/user-attachments/assets/9b9953b7-0752-40cd-8f5e-4983e38fdb33" />
 **Một yêu cầu trả về file CSS**
