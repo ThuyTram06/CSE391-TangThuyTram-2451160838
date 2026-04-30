@@ -151,8 +151,6 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 ## Bài B4 (15đ) — Phân tích trang web thật
 ### 1. Phân tích Semantic HTML (tab Elements)
 
-![Semantic Screenshot](screenshots/semantic.png)
-
 ### 3 thẻ semantic HTML5:
 
 * `<section>`
@@ -174,8 +172,6 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 
 ### 2. Phân tích Table
 
-![Table Screenshot](screenshots/table.png)
-
 ### Table hiển thị nội dung:
 
 * Thông tin chi tiết sản phẩm (ví dụ: thương hiệu, xuất xứ, loại pin...)
@@ -188,8 +184,6 @@ Sự khác nhau giữa , , và . Ba thẻ này dùng để phân nhóm nội dun
 → Thay vào đó dùng nhiều `<div>` để giả lập bảng.
 
 ### 3. Phân tích Form (ô tìm kiếm)
-
-![Form Screenshot](screenshots/form.png)
 
 ### Thuộc tính form:
 
