@@ -97,6 +97,7 @@ Tài liệu : `tuan_2_css_core/11_box_model.md`
 **Trường hợp 3: Margin Collapse**
 * Khoảng cách giữa 2 box = 40px
 * Giải thích: Margin dọc không cộng dồn; CSS lấy giá trị lớn hơn; Nên: max(25, 40) = 40px (không phải 65px)
+
 **Nâng cao (margin âm)**
 ```css
 .box-a { margin-bottom: -10px; }
@@ -104,3 +105,63 @@ Tài liệu : `tuan_2_css_core/11_box_model.md`
 ```
 * Khoảng cách thực tế = 40 + (-10) = 30px
 * Giải thích: Khi có margin âm → CSS cộng đại số; 40px kéo xuống, -10px kéo lên → còn 30px
+
+## Câu A4 (5đ) — Specificity (Độ ưu tiên)
+Xét các CSS rules áp dụng cho:
+```html
+<p class="price" id="main-price">...</p>
+```
+### 1. Tính specificity (a, b, c)
+Quy ước:
+* a = số lượng ID
+* b = số lượng class, attribute, pseudo-class
+* c = số lượng tag (element)
+
+
+**Rule A**
+```css
+p { color: black; }
+```
+-> Specificity: (0, 0, 1)
+**Rule B**
+```css
+.price { color: blue; }
+```
+-> Specificity: (0, 1, 0)
+**Rule C**
+```css
+#main-price { color: red; }
+```
+-> Specificity: (1, 0, 0)
+**Rule D**
+```css
+p.price { color: green; }
+```
+-> Specificity: (0, 1, 1)
+### 2. Element sẽ có màu gì?
+So sánh specificity:
+* A: (0,0,1)
+* B: (0,1,0)
+* D: (0,1,1)
+* C: (1,0,0) -> lớn nhất
+
+**Kết quả: màu đỏ (red)**
+Giải thích:
+* ID có độ ưu tiên cao nhất
+* Rule C có ID → thắng tất cả các rule còn lại
+
+### 3. Nếu có Inline CSS
+```html
+<p class="price" id="main-price" style="color: orange;">
+```
+Inline CSS có specificity: (1, 0, 0, 0) (cao nhất)
+**Kết quả: màu cam (orange)**
+### 4. Nếu Rule A thêm `!important`
+```css
+p { color: black !important; }
+```
+`!important` override tất cả specificity
+**Kết quả: màu đen (black)**
+Giải thích:
+`!important` ưu tiên cao hơn cả ID và Inline
+Trừ khi có rule khác cũng dùng `!important` và có specificity cao hơn
