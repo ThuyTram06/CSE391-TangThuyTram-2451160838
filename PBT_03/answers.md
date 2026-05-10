@@ -179,7 +179,9 @@ Các loại selector đã dùng
 
 ## Bài B2 (20đ) — Box Model Lab
 Hộp 1 (content-box): chiều rộng thực tế = 350px (đo từ DevTools)
+
 Hộp 2 (border-box): chiều rộng thực tế = 300px (đo từ DevTools)
+
 Giải thích sự khác biệt: 
 - content-box:
   width KHÔNG bao gồm padding + border  
@@ -199,6 +201,46 @@ Giải thích sự khác biệt:
 
 Ảnh 4 — Layout đúng (border-box): Tổng chiều rộng: 250 + 500 + 250 = 1000px 
 <img width="1905" height="875" alt="Screenshot 2026-05-10 222541" src="https://github.com/user-attachments/assets/bb85d92f-9a8d-46d5-9938-b02d954fa781" />
+
+## Bài B3 (15đ) — Specificity Battle
+### 1.Danh sách rules + specificity
+1. p -> (0,0,1)
+2. .text -> (0,1,0)
+3. .highlight -> (0,1,0)
+4. p.text -> (0,1,1)
+5. p.highlight -> (0,1,1)
+6. .text.highlight -> (0,2,0)
+7. #demo -> (1,0,0)
+8. p#demo -> (1,0,1)
+9. #demo.text -> (1,1,0)
+10. #demo.text.highlight -> (1,2,0)
+
+### Element màu gì? Giải thích
+Element có màu: **gold**
+
+Giải thích
+- Rule cuối có specificity cao nhất: (1,2,0)
+- Có:
+  - 1 ID
+  - 2 class
+- Nên thắng tất cả rule còn lại
+
+### Thay đổi thứ tự rules trong CSS file. Kết quả có đổi không? Giải thích.
+Kết quả: **KHÔNG đổi**
+
+Giải thích:
+- Specificity quan trọng hơn thứ tự
+- Rule có specificity cao hơn luôn thắng
+- Thứ tự chỉ quan trọng khi specificity bằng nhau
+
+###Screenshot kết quả:
+<img width="477" height="256" alt="Screenshot 2026-05-10 224150" src="https://github.com/user-attachments/assets/fe78a74d-2d10-4846-b56d-c9473999b18f" />
+
+
+
+
+
+
 
 
 
