@@ -1,7 +1,9 @@
 # PHẦN A — KIỂM TRA ĐỌC HIỂU (25 điểm)
 ## Câu A1 (5đ) — 3 Cách nhúng CSS
 Tài liệu tham chiếu `CCC_Frontend_2026/tuan_2_css_core/08_introduction_css.md`
+
 **3 cách nhúng CSS vào HTML:**
+
 **1. Inline CSS (trong thẻ HTML)**
 * VD: `<h1 style="color: red; font-size: 24px;">Tiêu đề</h1>`
 * Ưu điểm: Nhanh, tiện test/debug, áp dụng trực tiếp cho 1 phần tử
@@ -63,4 +65,42 @@ Giải thích:
 7.  `a[href="/"]` → Chọn:  **Home**
 8.  `.top-bar.dark h1` → Chọn:  **ShopTLU**
 
+Ảnh screenshot:
+<img width="1901" height="539" alt="Screenshot 2026-05-10 163739" src="https://github.com/user-attachments/assets/de2876cd-7ce0-47cb-906b-e2e1c1b9eb27" />
 
+## Câu A3 (7đ) — Box Model — Tính toán kích thước
+Tài liệu : `tuan_2_css_core/11_box_model.md`
+**Trường hợp 1: content-box (mặc định)**
+```css
+.box-1 {
+    width: 400px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+}
+```
+* Chiều rộng hiển thị = width + padding×2 + border×2 = 400 + 40 + 10 = 450px
+* Không gian chiếm trên trang = chiều rộng hiển thị + margin×2 = 450 + 20 = 470px
+**Trường hợp 2: border-box**
+```css
+.box-2 {
+    box-sizing: border-box;
+    width: 400px;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+}
+```
+* Chiều rộng hiển thị = 400px (không đổi)
+* Kích thước content thực tế = width - padding×2 - border×2 = 400 - 40 - 10 = 350px
+* Không gian chiếm trên trang = width + margin×2 = 400 + 20 = 420px
+**Trường hợp 3: Margin Collapse**
+* Khoảng cách giữa 2 box = 40px
+* Giải thích: Margin dọc không cộng dồn; CSS lấy giá trị lớn hơn; Nên: max(25, 40) = 40px (không phải 65px)
+**Nâng cao (margin âm)**
+```css
+.box-a { margin-bottom: -10px; }
+.box-b { margin-top: 40px; }
+```
+* Khoảng cách thực tế = 40 + (-10) = 30px
+* Giải thích: Khi có margin âm → CSS cộng đại số; 40px kéo xuống, -10px kéo lên → còn 30px
