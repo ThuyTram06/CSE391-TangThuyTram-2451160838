@@ -215,7 +215,7 @@ Giải thích sự khác biệt:
 9. #demo.text -> (1,1,0)
 10. #demo.text.highlight -> (1,2,0)
 
-### Element màu gì? Giải thích
+### 2.Element màu gì? Giải thích
 Element có màu: **gold**
 
 Giải thích
@@ -225,7 +225,10 @@ Giải thích
   - 2 class
 - Nên thắng tất cả rule còn lại
 
-### Thay đổi thứ tự rules trong CSS file. Kết quả có đổi không? Giải thích.
+### 3.Screenshot kết quả:
+<img width="477" height="256" alt="Screenshot 2026-05-10 224150" src="https://github.com/user-attachments/assets/fe78a74d-2d10-4846-b56d-c9473999b18f" />
+
+### 4.Thay đổi thứ tự rules trong CSS file. Kết quả có đổi không? Giải thích.
 Kết quả: **KHÔNG đổi**
 
 Giải thích:
@@ -233,8 +236,30 @@ Giải thích:
 - Rule có specificity cao hơn luôn thắng
 - Thứ tự chỉ quan trọng khi specificity bằng nhau
 
-###Screenshot kết quả:
-<img width="477" height="256" alt="Screenshot 2026-05-10 224150" src="https://github.com/user-attachments/assets/fe78a74d-2d10-4846-b56d-c9473999b18f" />
+# PHẦN C — DEBUG & SUY LUẬN (20 điểm)
+## Câu C1 (10đ) — Debug CSS Layout
+## Kích thước thực tế
+Sidebar = 342px  
+Content = 722px  
+Tổng = 1064px > 960px
+
+## Giải thích
+Do sử dụng content-box, padding và border bị cộng thêm vào width → tổng vượt container → layout bị vỡ.
+
+## Cách sửa
+### Cách 1: border-box
+Dùng:
+* { box-sizing: border-box; }
+-> width giữ nguyên, layout đúng.
+
+### Cách 2: không dùng border-box
+Giảm width:
+- Sidebar: 258px
+- Content: 598px
+-> Tổng = 960px
+
+
+
 
 
 
