@@ -1,0 +1,49 @@
+/* 1 */
+p {
+    color: black;               /* (0,0,1) */
+}
+
+/* 2 */
+.text {
+    color: blue;                /* (0,1,0) */
+}
+
+/* 3 */
+.highlight {
+    color: green;               /* (0,1,0) */
+}
+
+/* 4 */
+p.text {
+    color: orange;              /* (0,1,1) */
+}
+
+/* 5 */
+p.highlight {
+    color: purple;              /* (0,1,1) */
+}
+
+/* 6 */
+.text.highlight {
+    color: pink;                /* (0,2,0) */
+}
+
+/* 7 */
+#demo {
+    color: red;                 /* (1,0,0) */
+}
+
+/* 8 */
+p#demo {
+    color: brown;               /* (1,0,1) */
+}
+
+/* 9 */
+#demo.text {
+    color: teal;                /* (1,1,0) */
+}
+
+/* 10 */
+#demo.text.highlight {
+    color: gold;                /* (1,2,0) */
+}
