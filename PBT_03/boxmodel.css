@@ -1,8 +1,9 @@
+/* RESET */
 * {
     box-sizing: border-box;
 }
 
-/* PHẦN 1 */
+/*  PHẦN 1  */
 .wrapper {
     display: flex;
     gap: 20px;
@@ -27,12 +28,13 @@
     background: #c7d2fe;
 }
 
-/* PHẦN 2 */
+/*  PHẦN 2  */
 
 .container {
     width: 1000px;
     margin: 20px auto;
     display: flex;
+    flex-wrap: wrap; /* QUAN TRỌNG: cho phép xuống dòng khi bị tràn */
 }
 
 /* KHÔNG dùng border-box */
@@ -40,7 +42,7 @@
     box-sizing: content-box;
 }
 
-/* Có border-box */
+/*  Có border-box */
 .border-box-layout * {
     box-sizing: border-box;
 }
