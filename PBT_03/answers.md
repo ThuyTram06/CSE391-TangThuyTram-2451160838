@@ -190,18 +190,6 @@ Giải thích sự khác biệt:
   width đã bao gồm padding + border  
   -> tổng vẫn = **300px**
 
-Ảnh 1 — content-box:
-<img width="1902" height="879" alt="Screenshot 2026-05-10 221929" src="https://github.com/user-attachments/assets/9aa5bb84-e64e-4e9e-8e9a-0f079a546c4c" />
-
-Ảnh 2 — border-box:
-<img width="1903" height="873" alt="Screenshot 2026-05-10 222036" src="https://github.com/user-attachments/assets/4379faf0-a88e-470f-94bc-a2543de0dac6" />
-
-Ảnh 3 — Layout bị vỡ (no-border-box): Tổng chiều rộng: 280 + 540 + 280 = 1100px > 1000px
-<img width="1906" height="877" alt="Screenshot 2026-05-10 222432" src="https://github.com/user-attachments/assets/e6225998-0086-4ee3-821b-7173ecca5b7b" />
-
-Ảnh 4 — Layout đúng (border-box): Tổng chiều rộng: 250 + 500 + 250 = 1000px 
-<img width="1905" height="875" alt="Screenshot 2026-05-10 222541" src="https://github.com/user-attachments/assets/bb85d92f-9a8d-46d5-9938-b02d954fa781" />
-
 ## Bài B3 (15đ) — Specificity Battle
 ### 1.Danh sách rules + specificity
 1. p -> (0,0,1)
@@ -297,6 +285,8 @@ Giảm width:
 - `.highlight` có `!important`
 -> luôn thắng → green
 
+### Screenshot kết quả:
+<img width="703" height="306" alt="Screenshot 2026-05-10 230758" src="https://github.com/user-attachments/assets/a1ee524d-8256-45f9-a7f3-9d46b149837f" />
 
 
 
