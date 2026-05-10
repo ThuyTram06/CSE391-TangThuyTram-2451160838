@@ -177,4 +177,30 @@ Các loại selector đã dùng
 * Descendant selector: `nav a`, `tbody tr`
 * Pseudo-class: : `hover`, `:nth-child(even)`
 
+## Bài B2 (20đ) — Box Model Lab
+Hộp 1 (content-box): chiều rộng thực tế = 350px (đo từ DevTools)
+Hộp 2 (border-box): chiều rộng thực tế = 300px (đo từ DevTools)
+Giải thích sự khác biệt: 
+- content-box:
+  width KHÔNG bao gồm padding + border  
+  -> 300 + 40 + 10 = **350px**
+- border-box:
+  width đã bao gồm padding + border  
+  -> tổng vẫn = **300px**
+
+Ảnh 1 — content-box:
+<img width="1902" height="879" alt="Screenshot 2026-05-10 221929" src="https://github.com/user-attachments/assets/9aa5bb84-e64e-4e9e-8e9a-0f079a546c4c" />
+
+Ảnh 2 — border-box:
+<img width="1903" height="873" alt="Screenshot 2026-05-10 222036" src="https://github.com/user-attachments/assets/4379faf0-a88e-470f-94bc-a2543de0dac6" />
+
+Ảnh 3 — Layout bị vỡ (no-border-box): Tổng chiều rộng: 280 + 540 + 280 = 1100px > 1000px
+<img width="1906" height="877" alt="Screenshot 2026-05-10 222432" src="https://github.com/user-attachments/assets/e6225998-0086-4ee3-821b-7173ecca5b7b" />
+
+Ảnh 4 — Layout đúng (border-box): Tổng chiều rộng: 250 + 500 + 250 = 1000px 
+<img width="1905" height="875" alt="Screenshot 2026-05-10 222541" src="https://github.com/user-attachments/assets/bb85d92f-9a8d-46d5-9938-b02d954fa781" />
+
+
+
+
 
