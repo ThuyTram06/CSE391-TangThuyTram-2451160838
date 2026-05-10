@@ -161,7 +161,20 @@ Inline CSS có specificity: (1, 0, 0, 0) (cao nhất)
 p { color: black !important; }
 ```
 `!important` override tất cả specificity
+
 **Kết quả: màu đen (black)**
+
 Giải thích:
 `!important` ưu tiên cao hơn cả ID và Inline
 Trừ khi có rule khác cũng dùng `!important` và có specificity cao hơn
+
+# PHẦN B — THỰC HÀNH CODE (55 điểm)
+## Bài B1 (20đ) — Style trang Profile
+Các loại selector đã dùng
+* Element selector: `body`, `header`, `table`, `footer`
+* Class selector: `.active`
+* ID selector: `#contact`
+* Descendant selector: `nav a`, `tbody tr`
+* Pseudo-class: : `hover`, `:nth-child(even)`
+
+
