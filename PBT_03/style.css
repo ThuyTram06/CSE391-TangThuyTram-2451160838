@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation */
+nav a {
+    text-decoration: none;
+    color: #e0f2fe;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+/* Hover */
+nav a:hover {
+    color: #facc15;
+    text-decoration: underline;
+}
+
+/* Active link */
+nav a.active {
+    color: #f87171;
+    font-weight: bold;
+}
+
+/* Section */
+section {
+    padding: 20px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+/* Header row */
+thead {
+    background-color: #1e293b;
+    color: white;
+}
+
+/* Cell */
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Zebra striping */
+tbody tr:nth-child(even) {
+    background-color: #e2e8f0;
+}
+
+/* Hover row */
+tbody tr:hover {
+    background-color: #cbd5f5;
+}
+
+/* Aside */
+#contact {
+    background-color: #f8fafc;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+/* Footer */
+footer {
+    background-color: #1e293b;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 15px;
+}
