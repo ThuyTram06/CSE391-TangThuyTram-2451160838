@@ -238,25 +238,65 @@ Giải thích:
 
 # PHẦN C — DEBUG & SUY LUẬN (20 điểm)
 ## Câu C1 (10đ) — Debug CSS Layout
-## Kích thước thực tế
+### Kích thước thực tế
 Sidebar = 342px  
 Content = 722px  
 Tổng = 1064px > 960px
 
-## Giải thích
+### Giải thích
 Do sử dụng content-box, padding và border bị cộng thêm vào width → tổng vượt container → layout bị vỡ.
 
-## Cách sửa
-### Cách 1: border-box
+### Cách sửa
+**Cách 1: border-box**
 Dùng:
 * { box-sizing: border-box; }
 -> width giữ nguyên, layout đúng.
 
-### Cách 2: không dùng border-box
+**Cách 2: không dùng border-box**
 Giảm width:
 - Sidebar: 258px
 - Content: 598px
 -> Tổng = 960px
+
+## Câu C2 (10đ) — Cascade Puzzle
+
+### Kết quả
+
+1. "Sản phẩm A"
+- font-size = 20px
+- color = green
+
+2. "Mô tả sản phẩm A" (trong featured)
+- color = blue
+
+3. "Sản phẩm B"
+- font-size = 20px
+- color = blue
+
+4. "Mô tả sản phẩm B"
+- color = green
+
+### Giải thích
+
+**Sản phẩm A**
+- font-size: từ `.card .title` → 20px
+- color:
+  - `.highlight { color: green !important }` thắng tất cả
+  - override `#featured .title` và `.card`
+
+**Mô tả sản phẩm A**
+- `.card p { color: inherit }`
+-> kế thừa từ `.card`
+-> `.card { color: blue }`
+
+**Sản phẩm B**
+- font-size: `.card .title` → 20px
+- color: kế thừa từ `.card` → blue
+
+### Mô tả sản phẩm B
+- `.highlight` có `!important`
+-> luôn thắng → green
+
 
 
 
