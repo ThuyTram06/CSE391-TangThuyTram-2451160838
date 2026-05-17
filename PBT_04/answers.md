@@ -347,15 +347,6 @@ Dùng Flexbox theo chiều dọc cho card và đẩy nút xuống đáy bằng `
 
 ---
 
-## Screenshot cần chụp
-
-### Trước sửa:
-- Các nút "Mua" lệch nhau
-
-### Sau sửa:
-- Tất cả nút nằm thẳng hàng dưới đáy card
-
----
 
 # Lỗi 2: Items không nằm giữa màn hình
 
@@ -411,16 +402,6 @@ Dùng:
     text-align: center;
 }
 ```
-
----
-
-## Screenshot cần chụp
-
-### Trước sửa:
-- Nội dung nằm góc trái trên
-
-### Sau sửa:
-- Nội dung nằm chính giữa màn hình
 
 ---
 
