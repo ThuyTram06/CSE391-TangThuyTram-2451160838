@@ -446,3 +446,101 @@ $primary: blue;
 ```
 
 → Browser sẽ đọc file CSS đã compile.
+
+# PHẦN B — THỰC HÀNH CODE (60 điểm)
+## Bài B3 (20đ) — SCSS Refactor
+
+ *Các phương thức biên dịch SCSS → CSS trong dự án*
+
+* Cách 1: Sử dụng Extension "Live Sass Compiler" trên VS Code
+
+Đây là công cụ tự động hóa trực quan nhất được tích hợp ngay bên trong trình chỉnh sửa mã nguồn VS Code.
+
+### Bước 1:
+Cài đặt Extension:
+
+```txt
+Live Sass Compiler
+```
+
+(Tác giả: Glenn Marks)
+
+Từ cửa sổ Extensions:
+
+```txt
+Ctrl + Shift + X
+```
+
+
+### Bước 2:
+
+Di chuyển chuột xuống thanh trạng thái (Status Bar) dưới đáy màn hình VS Code.
+
+### Bước 3:
+
+Nhấn vào nút:
+
+```txt
+Watch Sass
+```
+
+Ngay lập tức trạng thái sẽ chuyển thành:
+
+```txt
+Watching...
+```
+
+
+### Bước 4:
+
+Mỗi khi nhấn:
+
+```txt
+Ctrl + S
+```
+
+để lưu file:
+
+```txt
+scss/style.scss
+```
+
+hệ thống sẽ tự động biên dịch và tạo ra:
+
+```txt
+scss/style.css
+scss/style.css.map
+```
+
+
+* Cách 2: Sử dụng Terminal / Command Line (Sass CLI)
+
+Nếu không dùng extension giao diện đồ họa, dự án có thể được biên dịch trực tiếp thông qua Terminal (Git Bash, PowerShell, CMD).
+
+
+### Lệnh biên dịch thủ công một lần (Compile Once)
+
+```bash
+sass scss/style.scss scss/style.css
+```
+
+Lệnh này sẽ:
+
+- Đọc file:
+
+```txt
+scss/style.scss
+```
+
+- Sau đó biên dịch thành:
+
+```txt
+scss/style.css
+```
+
+
+### Lệnh Watch Mode (Tự động compile khi save)
+
+```bash
+sass scss/style.scss scss/style.css --watch
+```
