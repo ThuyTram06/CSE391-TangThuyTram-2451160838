@@ -656,7 +656,201 @@ YouTube
 - Font lớn hơn
 - Padding và khoảng cách rộng hơn mobile/tablet
 
+## Câu C2 — Thiết kế Responsive Strategy cho trang Đặt bàn nhà hàng
 
+### 1. Wireframe — Mobile (< 768px)
+
+```txt
+┌──────────────────────┐
+│ LOGO     ☰ MENU      │
+│ Hotline đặt bàn      │
+├──────────────────────┤
+│                      │
+│     HERO IMAGE       │
+│                      │
+├──────────────────────┤
+│     FOOD CARD 1      │
+├──────────────────────┤
+│     FOOD CARD 2      │
+├──────────────────────┤
+│     FOOD CARD 3      │
+├──────────────────────┤
+│     FOOD CARD 4      │
+├──────────────────────┤
+│     FOOD CARD 5      │
+├──────────────────────┤
+│     FOOD CARD 6      │
+├──────────────────────┤
+│     BOOKING FORM     │
+│  Date / Time / Note  │
+├──────────────────────┤
+│      GOOGLE MAP      │
+├──────────────────────┤
+│        FOOTER        │
+└──────────────────────┘
+```
+
+#### Phân tích Mobile
+
+- Navigation đầy đủ bị ẩn
+- Chỉ hiện hamburger menu ☰
+- Form đặt bàn nằm dưới grid món ăn
+- Layout 1 cột để dễ đọc trên điện thoại
+
+---
+
+### 2. Wireframe — Tablet (768px — 1023px)
+
+```txt
+┌──────────────────────────────────┐
+│ LOGO     MENU      Hotline       │
+├──────────────────────────────────┤
+│                                  │
+│          HERO IMAGE              │
+│                                  │
+├──────────────┬───────────────────┤
+│ FOOD CARD 1 │ FOOD CARD 2        │
+├──────────────┼───────────────────┤
+│ FOOD CARD 3 │ FOOD CARD 4        │
+├──────────────┼───────────────────┤
+│ FOOD CARD 5 │ FOOD CARD 6        │
+├──────────────────────────────────┤
+│         BOOKING FORM             │
+├──────────────────────────────────┤
+│          GOOGLE MAP              │
+├──────────────────────────────────┤
+│            FOOTER                │
+└──────────────────────────────────┘
+```
+
+#### Phân tích Tablet
+
+- Food grid hiển thị 2 cột
+- Navigation hiển thị đầy đủ hơn mobile
+- Google Maps nằm dưới form
+- Layout vẫn ưu tiên dạng dọc
+
+---
+
+### 3. Wireframe — Desktop (≥ 1024px)
+
+```txt
+┌──────────────────────────────────────────────────────┐
+│ LOGO        MENU NAVIGATION          Hotline         │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│                   HERO IMAGE                         │
+│                                                      │
+├───────────────────┬──────────────────────────────────┤
+│                   │                                  │
+│   BOOKING FORM    │         FOOD GRID               │
+│                   │   ┌────┬────┬────┐              │
+│                   │   │ F1 │ F2 │ F3 │              │
+│                   │   ├────┼────┼────┤              │
+│                   │   │ F4 │ F5 │ F6 │              │
+│                   │                                  │
+├───────────────────┴──────────────────────────────────┤
+│                   GOOGLE MAP                         │
+├──────────────────────────────────────────────────────┤
+│                     FOOTER                           │
+└──────────────────────────────────────────────────────┘
+```
+
+#### Phân tích Desktop
+
+- Layout chính gồm 2 cột
+- Booking form bên trái
+- Food grid bên phải
+- Grid món ăn hiển thị 3 cột
+- Không cần sidebar riêng
+
+---
+
+### CSS Skeleton — Mobile First
+
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.layout {
+    display: grid;
+    gap: 20px;
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero {
+    height: 300px;
+    background: #ddd;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.food-card {
+    background: #f5f5f5;
+    padding: 20px;
+    min-height: 180px;
+}
+
+.booking-form {
+    display: grid;
+    gap: 12px;
+}
+
+.map {
+    height: 300px;
+    background: #ccc;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: white;
+}
+
+/* TABLET */
+
+@media (min-width: 768px) {
+
+    .food-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* DESKTOP */
+
+@media (min-width: 1024px) {
+
+    .main-content {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 24px;
+    }
+
+    .food-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+```
 
 
 
