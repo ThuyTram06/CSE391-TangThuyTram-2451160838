@@ -555,7 +555,7 @@ YouTube
 
 **1. Mobile (375px)**
 
-* Navigation thay đổi thế nào?
+#### Navigation thay đổi thế nào?
 
 - Thanh navigation trên cùng vẫn giữ:
   - Logo YouTube
@@ -572,14 +572,14 @@ YouTube
 - Thanh tìm kiếm đầy đủ bị thu gọn thành icon kính lúp.
 
 
-* Lưới content thay đổi thế nào?
+#### Lưới content thay đổi thế nào?
 
 - Video hiển thị:
   - 1 cột
 - Mỗi video chiếm gần toàn bộ chiều rộng màn hình.
 
 
-* Elements bị ẩn trên mobile
+#### Elements bị ẩn trên mobile
 
 - Sidebar đầy đủ
 - Một số nút text trong navigation
@@ -587,7 +587,7 @@ YouTube
 - Banner quảng cáo lớn bị giảm
 
 
-* Font size
+#### Font size
 
 - Font nhỏ hơn desktop
 - Khoảng cách padding/margin giảm để tiết kiệm không gian
@@ -595,7 +595,7 @@ YouTube
 
 **2. Tablet (768px)**
 
-* Navigation thay đổi thế nào?
+#### Navigation thay đổi thế nào?
 
 - Sidebar xuất hiện dạng thu gọn:
   - Chỉ icon
@@ -604,19 +604,19 @@ YouTube
 - Thanh search dài hơn mobile.
 
 
-* Lưới content thay đổi thế nào?
+#### Lưới content thay đổi thế nào?
 
 - Video hiển thị:
   - 2 cột
 - Thumbnail nhỏ hơn desktop nhưng lớn hơn mobile.
 
 
-* Elements bị ẩn
+#### Elements bị ẩn
 
 - Một số menu phụ vẫn bị ẩn
 - Sidebar chưa mở full
 
-* Font size
+#### Font size
 
 - Lớn hơn mobile
 - Spacing thoáng hơn
@@ -624,7 +624,7 @@ YouTube
 
 **3. Desktop (1440px)**
 
-* Navigation thay đổi thế nào?
+#### Navigation thay đổi thế nào?
 
 - Sidebar đầy đủ:
   - Home
@@ -638,20 +638,20 @@ YouTube
 - Hiển thị thêm nút Create, Notifications, Profile
 
 
-* Lưới content thay đổi thế nào?
+#### Lưới content thay đổi thế nào?
 
 - Video hiển thị:
   - 4 → 6 cột tùy chiều rộng màn hình
 
 - Layout rộng và nhiều khoảng trắng hơn.
 
-* Elements bị ẩn
+#### Elements bị ẩn
 
 - Hầu như không bị ẩn
 - Hiển thị đầy đủ chức năng
 
 
-* Font size
+#### Font size
 
 - Font lớn hơn
 - Padding và khoảng cách rộng hơn mobile/tablet
