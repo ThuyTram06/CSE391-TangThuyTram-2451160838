@@ -210,3 +210,239 @@ CSS:
 
 - 1400px `≥ 1200px`
 → width = `1140px`
+
+## Câu A4 — SCSS Basics
+
+## 1. Variables — Biến trong SCSS
+
+Variables dùng để lưu màu sắc, font-size, spacing...
+Khi đổi giá trị biến, toàn bộ nơi sử dụng sẽ tự cập nhật.
+
+### Ví dụ:
+
+```scss
+$primary-color: #2563eb;
+$text-color: #1e293b;
+
+.button{
+    background: $primary-color;
+    color: white;
+}
+
+.title{
+    color: $text-color;
+}
+```
+
+### Lợi ích:
+- Dễ đổi theme
+- Tránh lặp code
+- Quản lý design system tốt hơn
+
+
+## 2. Nesting — CSS lồng nhau
+
+SCSS cho phép viết CSS theo cấu trúc HTML,
+giúp code dễ đọc hơn.
+
+### Ví dụ:
+
+```scss
+.navbar{
+
+    background: black;
+
+    .logo{
+        color: white;
+    }
+
+    .menu{
+        display: flex;
+
+        a{
+            color: white;
+
+            &:hover{
+                color: yellow;
+            }
+        }
+    }
+}
+```
+
+### Compile thành CSS:
+
+```css
+.navbar{
+    background: black;
+}
+
+.navbar .logo{
+    color: white;
+}
+
+.navbar .menu{
+    display: flex;
+}
+
+.navbar .menu a{
+    color: white;
+}
+
+.navbar .menu a:hover{
+    color: yellow;
+}
+```
+
+### Lợi ích:
+- Code rõ ràng
+- Dễ tổ chức component
+- Viết nhanh hơn
+
+## 3. Mixins — Tái sử dụng code
+
+Mixin giống function trong lập trình.
+Dùng để tái sử dụng nhiều đoạn CSS giống nhau.
+
+### Định nghĩa mixin:
+
+```scss
+@mixin flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+### Sử dụng:
+
+```scss
+.box{
+    @include flex-center;
+    height: 200px;
+}
+```
+
+### Output CSS:
+
+```css
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+```
+
+### Lợi ích:
+- Giảm lặp code
+- Tái sử dụng dễ dàng
+- Rất hữu ích cho responsive và button styles
+
+
+## 4. @extend / Inheritance
+
+`@extend` cho phép một class kế thừa style của class khác.
+
+### Ví dụ:
+
+```scss
+.button{
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+}
+
+.button-primary{
+    @extend .button;
+    background: blue;
+}
+
+.button-danger{
+    @extend .button;
+    background: red;
+}
+```
+
+### Compile thành CSS:
+
+```css
+.button,
+.button-primary,
+.button-danger{
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+}
+
+.button-primary{
+    background: blue;
+}
+
+.button-danger{
+    background: red;
+}
+```
+
+### Lợi ích:
+- Kế thừa style nhanh
+- Tránh viết lại CSS
+
+## 5. Tại sao browser không đọc được file `.scss`?
+
+Browser chỉ hiểu CSS thuần.
+
+SCSS có:
+- Variables (`$primary`)
+- Mixins (`@mixin`)
+- Nesting
+- Functions (`darken()`)
+- Loops, conditions...
+
+→ Đây không phải cú pháp CSS chuẩn.
+
+Vì vậy browser KHÔNG thể đọc trực tiếp file `.scss`
+
+
+## 6. Cần bước gì để chuyển SCSS → CSS?
+
+Cần compile SCSS thành CSS bằng SCSS compiler.
+
+### Quy trình:
+
+```text
+SCSS → Compiler → CSS → Browser
+```
+
+### Công cụ phổ biến:
+
+- Live Sass Compiler (VS Code)
+- Vite
+- Webpack
+- Node Sass / Dart Sass
+
+### Ví dụ:
+
+```bash
+npx sass styles.scss styles.css
+```
+
+Sau khi compile:
+
+```scss
+$primary: blue;
+
+.button{
+    background: $primary;
+}
+```
+
+↓
+
+```css
+.button{
+    background: blue;
+}
+```
+
+→ Browser sẽ đọc file CSS đã compile.
