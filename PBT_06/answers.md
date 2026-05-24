@@ -959,3 +959,403 @@ display: flex;
 ```text
 [Hiển thị dạng Flex]
 ```
+
+# PHẦN C — PHÂN TÍCH (20 điểm)
+
+## Câu C1 (10đ) — Tailwind vs CSS thuần
+
+### Ví dụ: Product Card
+
+### CSS Thuần
+
+#### HTML
+
+```html
+<div class="card">
+    <img src="product.jpg">
+
+    <h3>Product</h3>
+
+    <p>Description</p>
+
+    <button>Buy Now</button>
+</div>
+```
+
+#### CSS
+
+```css
+.card{
+    background:white;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    padding:20px;
+}
+
+.card img{
+    width:100%;
+}
+
+.card button{
+    background:#3b82f6;
+    color:white;
+    padding:10px 20px;
+    border:none;
+}
+```
+
+---
+
+### TailwindCSS
+
+```html
+<div class="bg-white rounded-lg shadow-md p-5">
+    <img src="product.jpg" class="w-full">
+
+    <h3 class="text-xl font-bold mt-3">
+        Product
+    </h3>
+
+    <p class="text-gray-600 my-3">
+        Description
+    </p>
+
+    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Buy Now
+    </button>
+</div>
+```
+
+---
+
+### So sánh HTML File Size
+
+| Tiêu chí | CSS Thuần | Tailwind |
+|-----------|-----------|-----------|
+| HTML | Ngắn hơn | Dài hơn |
+| CSS | Phải viết riêng | Hầu như không cần |
+| Tổng kích thước dự án | Lớn hơn khi nhiều component | Thường nhỏ hơn |
+
+Ví dụ:
+
+```text
+CSS Thuần:
+HTML = 10 dòng
+CSS = 30 dòng
+
+Tailwind:
+HTML = 20 dòng
+CSS = 0 dòng
+```
+
+---
+
+### Maintainability (Dễ đọc, dễ sửa)
+
+#### CSS Thuần
+
+Ưu điểm:
+
+- HTML gọn
+- Tách riêng cấu trúc và giao diện
+
+Nhược điểm:
+
+- Phải tìm CSS tương ứng
+- Dự án lớn dễ bị CSS chồng chéo
+
+---
+
+#### Tailwind
+
+Ưu điểm:
+
+- Nhìn HTML là biết giao diện
+- Sửa trực tiếp trên class
+- Không cần chuyển qua file CSS
+
+Nhược điểm:
+
+- HTML dài
+- Nhiều class có thể gây rối khi mới học
+
+---
+
+### Reusability (Khả năng dùng lại)
+
+#### CSS Thuần
+
+Dùng lại bằng:
+
+```css
+.card{}
+.btn{}
+.navbar{}
+```
+
+Sau đó:
+
+```html
+<div class="card"></div>
+```
+
+---
+
+#### Tailwind
+
+Có thể dùng:
+
+```html
+<div class="bg-white rounded-lg shadow-md p-5">
+```
+
+Hoặc tạo component bằng:
+
+```css
+@apply
+```
+
+Ví dụ:
+
+```css
+.card{
+    @apply bg-white rounded-lg shadow-md p-5;
+}
+```
+
+Sau đó:
+
+```html
+<div class="card">
+```
+
+---
+
+### Kết luận
+
+| Tiêu chí | CSS Thuần | Tailwind |
+|-----------|-----------|-----------|
+| HTML gọn | ✓ | ✗ |
+| Sửa nhanh | ✗ | ✓ |
+| Tránh CSS conflict | ✗ | ✓ |
+| Học dễ | ✓ | ✗ |
+| Dự án lớn | Trung bình | Tốt |
+
+---
+
+## Câu C2 (10đ) — Performance
+
+### 1. Tại sao Tailwind CSS cuối cùng nhỏ hơn Bootstrap?
+
+Thoạt nhìn:
+
+```html
+class="bg-blue-500 text-white px-4 py-2 rounded"
+```
+
+có vẻ rất dài.
+
+Nhiều người nghĩ Tailwind sẽ nặng hơn Bootstrap.
+
+Thực tế ngược lại.
+
+---
+
+### Bootstrap
+
+Bootstrap chứa sẵn rất nhiều:
+
+- Grid
+- Modal
+- Carousel
+- Accordion
+- Toast
+- Dropdown
+- Tooltip
+- Navbar
+- Utilities
+
+Dù dự án không dùng vẫn phải tải.
+
+Ví dụ:
+
+```text
+Bootstrap CSS
+≈ 200KB+
+```
+
+---
+
+### Tailwind
+
+Tailwind chỉ giữ lại những class thực sự xuất hiện trong dự án.
+
+Ví dụ:
+
+```html
+bg-blue-500
+text-white
+rounded-lg
+```
+
+Nếu không dùng:
+
+```html
+bg-red-500
+bg-green-700
+text-pink-400
+```
+
+thì các class đó sẽ bị loại bỏ.
+
+---
+
+### Kết quả
+
+```text
+Bootstrap:
+Tải toàn bộ framework
+
+Tailwind:
+Tải đúng những gì đang dùng
+```
+
+Do đó file CSS production thường nhỏ hơn.
+
+---
+
+### 2. Tailwind PurgeCSS (Tailwind JIT) là gì?
+
+PurgeCSS/JIT là cơ chế tối ưu của Tailwind.
+
+Nó quét:
+
+```text
+HTML
+JS
+Vue
+React
+Blade
+...
+```
+
+để tìm các class đang sử dụng.
+
+Ví dụ:
+
+```html
+<div class="bg-blue-500 text-white">
+```
+
+Tailwind sẽ giữ:
+
+```css
+.bg-blue-500
+.text-white
+```
+
+---
+
+### Nó loại bỏ gì?
+
+Ví dụ Tailwind có:
+
+```css
+.bg-red-500
+.bg-green-500
+.bg-blue-500
+.bg-pink-500
+.text-yellow-300
+```
+
+Nhưng dự án chỉ dùng:
+
+```html
+bg-blue-500
+```
+
+Kết quả build:
+
+```css
+.bg-blue-500
+```
+
+Các class còn lại bị xóa.
+
+---
+
+### JIT (Just In Time)
+
+Tailwind 3+ dùng JIT mặc định.
+
+Hoạt động:
+
+```text
+Bạn viết class
+↓
+Tailwind sinh CSS ngay lập tức
+↓
+Chỉ tạo class được sử dụng
+```
+
+Ưu điểm:
+
+- Build nhanh
+- CSS rất nhỏ
+- Hỗ trợ utility động
+
+---
+
+### 3. Khi nào KHÔNG nên dùng TailwindCSS?
+
+#### Trường hợp 1: Website rất nhỏ
+
+Ví dụ:
+
+```text
+Trang giới thiệu cá nhân
+1-2 trang HTML đơn giản
+```
+
+CSS thuần sẽ nhanh hơn:
+
+```html
+.card{}
+.btn{}
+```
+
+không cần cả framework.
+
+---
+
+#### Trường hợp 2: Đội ngũ chưa quen Tailwind
+
+Ví dụ:
+
+```text
+Nhóm chỉ biết HTML + CSS cơ bản
+```
+
+Đoạn code:
+
+```html
+<div class="flex items-center justify-between bg-white rounded-lg shadow-md p-4">
+```
+
+có thể khó đọc hơn:
+
+```html
+<div class="card">
+```
+
+Lúc này CSS thuần hoặc Bootstrap dễ bảo trì hơn.
+
+---
+
+### Một số trường hợp khác
+
+```text
+- Dự án cần hỗ trợ trình duyệt quá cũ
+- Hệ thống đã có Design System riêng
+- Team đã xây dựng bộ CSS Framework nội bộ
+```
