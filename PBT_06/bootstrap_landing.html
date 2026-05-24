@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap E-Commerce Landing Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .carousel-item img{
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .hero-overlay{
+            background: rgba(0,0,0,0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="#">
+                ShopNow
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex me-3">
+                    <input
+                        class="form-control me-2"
+                        type="search"
+                        placeholder="Search">
+                    <button class="btn btn-outline-light">
+                        Search
+                    </button>
+                </form>
+
+                <button class="btn btn-warning">
+                    🛒 Cart
+                </button>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- HERO CAROUSEL -->
+    <div id="heroCarousel"
+         class="carousel slide"
+         data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active position-relative">
+                <img src="https://picsum.photos/1600/600?1"
+                     class="d-block w-100"
+                     alt="Slide 1">
+
+                <div class="hero-overlay"></div>
+
+                <div class="carousel-caption">
+                    <h1>Summer Sale</h1>
+                    <p>Up to 50% Off Selected Products</p>
+                    <a href="#" class="btn btn-primary">
+                        Shop Now
+                    </a>
+                </div>
+            </div>
+
+            <div class="carousel-item position-relative">
+                <img src="https://picsum.photos/1600/600?2"
+                     class="d-block w-100"
+                     alt="Slide 2">
+
+                <div class="hero-overlay"></div>
+
+                <div class="carousel-caption">
+                    <h1>New Collection</h1>
+                    <p>Discover The Latest Trends</p>
+                    <a href="#" class="btn btn-success">
+                        Explore
+                    </a>
+                </div>
+            </div>
+
+            <div class="carousel-item position-relative">
+                <img src="https://picsum.photos/1600/600?3"
+                     class="d-block w-100"
+                     alt="Slide 3">
+
+                <div class="hero-overlay"></div>
+
+                <div class="carousel-caption">
+                    <h1>Best Sellers</h1>
+                    <p>Customer Favorite Products</p>
+                    <a href="#" class="btn btn-warning">
+                        View More
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#heroCarousel"
+                data-bs-slide="prev">
+
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#heroCarousel"
+                data-bs-slide="next">
+
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+    </div>
+
+    <!-- PRODUCT SECTION -->
+    <section class="container py-5">
+
+        <h2 class="text-center mb-5">
+            Featured Products
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- PRODUCT 1 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100">
+
+                    <span class="badge bg-danger position-absolute m-2">
+                        Sale
+                    </span>
+
+                    <img src="https://picsum.photos/300/250?11"
+                         class="card-img-top"
+                         alt="Product">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            Product 1
+                        </h5>
+
+                        <p class="card-text">
+                            Premium quality product.
+                        </p>
+
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#quickViewModal">
+                            Xem nhanh
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT 2 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100">
+
+                    <span class="badge bg-danger position-absolute m-2">
+                        Sale
+                    </span>
+
+                    <img src="https://picsum.photos/300/250?12"
+                         class="card-img-top"
+                         alt="Product">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Product 2</h5>
+
+                        <p class="card-text">
+                            Premium quality product.
+                        </p>
+
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#quickViewModal">
+                            Xem nhanh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT 3 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100">
+
+                    <span class="badge bg-danger position-absolute m-2">
+                        Sale
+                    </span>
+
+                    <img src="https://picsum.photos/300/250?13"
+                         class="card-img-top"
+                         alt="Product">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Product 3</h5>
+
+                        <p class="card-text">
+                            Premium quality product.
+                        </p>
+
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#quickViewModal">
+                            Xem nhanh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT 4 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100">
+
+                    <span class="badge bg-danger position-absolute m-2">
+                        Sale
+                    </span>
+
+                    <img src="https://picsum.photos/300/250?14"
+                         class="card-img-top"
+                         alt="Product">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Product 4</h5>
+
+                        <p class="card-text">
+                            Premium quality product.
+                        </p>
+
+                        <button
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#quickViewModal">
+                            Xem nhanh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal fade"
+         id="quickViewModal"
+         tabindex="-1">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Product Details
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <img
+                        src="https://picsum.photos/500/300"
+                        class="img-fluid rounded mb-3"
+                        alt="Product">
+
+                    <h4>Featured Product</h4>
+
+                    <p>
+                        This is a sample product description displayed inside a Bootstrap Modal.
+                    </p>
+
+                    <h5 class="text-danger">
+                        $99.99
+                    </h5>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                    <button class="btn btn-primary">
+                        Add to Cart
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-5">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <h5>About Us</h5>
+                    <p>
+                        Trusted online shopping platform.
+                    </p>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <h5>Products</h5>
+                    <ul class="list-unstyled">
+                        <li>Fashion</li>
+                        <li>Electronics</li>
+                        <li>Accessories</li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <h5>Support</h5>
+                    <ul class="list-unstyled">
+                        <li>FAQ</li>
+                        <li>Shipping</li>
+                        <li>Returns</li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <h5>Contact</h5>
+                    <p>Email: support@shopnow.com</p>
+                    <p>Phone: 0123 456 789</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
