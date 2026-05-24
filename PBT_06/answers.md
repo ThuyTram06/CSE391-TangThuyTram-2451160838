@@ -330,13 +330,13 @@ Tablet/Desktop:
 | `.container-md` | 100% chiều rộng | Giống `.container` |
 
 
-# Câu C1 (10đ) — Tùy biến Bootstrap
+## Câu C1 (10đ) — Tùy biến Bootstrap
 
-## 1. Đổi màu `$primary` từ xanh mặc định sang `#E63946`
+### 1. Đổi màu `$primary` từ xanh mặc định sang `#E63946`
 
 Bootstrap được xây dựng bằng **SASS (SCSS)** và sử dụng các biến để quản lý màu sắc.
 
-### Công cụ cần chuẩn bị
+#### Công cụ cần chuẩn bị
 
 - Node.js
 - Bootstrap Source Files
@@ -356,7 +356,7 @@ npm install sass
 
 ---
 
-### Bước 1: Tạo file SCSS
+#### Bước 1: Tạo file SCSS
 
 Ví dụ tạo file:
 
@@ -370,7 +370,7 @@ $primary: #E63946;
 
 ---
 
-### Bước 2: Compile SCSS thành CSS
+#### Bước 2: Compile SCSS thành CSS
 
 ```bash
 sass custom.scss custom.css
@@ -384,7 +384,7 @@ custom.css
 
 ---
 
-### Bước 3: Import CSS vào HTML
+#### Bước 3: Import CSS vào HTML
 
 ```html
 <link rel="stylesheet" href="custom.css">
@@ -409,7 +409,7 @@ Ví dụ:
 
 ---
 
-## 2. Tại sao KHÔNG nên override trực tiếp?
+### 2. Tại sao KHÔNG nên override trực tiếp?
 
 Ví dụ:
 
@@ -419,7 +419,7 @@ Ví dụ:
 }
 ```
 
-### Nhược điểm
+#### Nhược điểm
 
 - Chỉ ảnh hưởng đến `.btn-primary`
 - Không đổi màu cho:
@@ -433,7 +433,7 @@ Ví dụ:
 
 ---
 
-### Ưu điểm của SASS Variables
+#### Ưu điểm của SASS Variables
 
 Ví dụ:
 
@@ -450,33 +450,12 @@ Bootstrap sẽ tự sinh lại toàn bộ hệ thống màu.
 - Dễ mở rộng
 - Tuân theo kiến trúc Bootstrap
 
----
 
-### Kết luận
+## Câu C2 (10đ) — So sánh CSS thuần và Bootstrap
 
-Nên sử dụng:
+### Navbar Responsive bằng CSS thuần
 
-```scss
-$primary: #E63946;
-```
-
-thay vì:
-
-```css
-.btn-primary {
-    background:red;
-}
-```
-
-vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nhất quán và dễ bảo trì.
-
----
-
-# Câu C2 (10đ) — So sánh CSS thuần và Bootstrap
-
-## Navbar Responsive bằng CSS thuần
-
-### HTML
+#### HTML
 
 ```html
 <nav class="navbar">
@@ -490,7 +469,7 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 </nav>
 ```
 
-### CSS
+#### CSS
 
 ```css
 .navbar{
@@ -521,9 +500,9 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 
 ---
 
-## Product Card bằng CSS thuần
+### Product Card bằng CSS thuần
 
-### HTML
+#### HTML
 
 ```html
 <div class="card">
@@ -537,7 +516,7 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 </div>
 ```
 
-### CSS
+#### CSS
 
 ```css
 .card{
@@ -561,9 +540,9 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 
 ---
 
-## Bootstrap Version
+### Bootstrap Version
 
-### Navbar
+#### Navbar
 
 ```html
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -571,7 +550,7 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 
 ---
 
-### Product Card
+#### Product Card
 
 ```html
 <div class="card">
@@ -591,7 +570,7 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 
 ---
 
-## Bảng so sánh
+### Bảng so sánh
 
 | Tiêu chí | CSS Thuần | Bootstrap |
 |-----------|-----------|------------|
@@ -604,7 +583,7 @@ vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nh
 
 ---
 
-## Khi nào NÊN dùng Bootstrap?
+### Khi nào NÊN dùng Bootstrap?
 
 ### Nên dùng khi:
 
@@ -627,9 +606,9 @@ Website bán hàng
 
 ---
 
-## Khi nào KHÔNG NÊN dùng Bootstrap?
+### Khi nào KHÔNG NÊN dùng Bootstrap?
 
-### Không nên dùng khi:
+#### Không nên dùng khi:
 
 - Thiết kế UI quá đặc biệt
 - Website yêu cầu nhận diện thương hiệu mạnh
@@ -648,3 +627,335 @@ Spotify
 
 Các hệ thống lớn thường xây dựng Design System riêng thay vì phụ thuộc hoàn toàn vào Bootstrap.
 
+## Câu A1 (10đ) — Utility Classes
+
+### HTML
+
+```html
+<div class="flex items-center justify-between p-4 bg-white shadow-md rounded-lg 
+            hover:shadow-xl transition-shadow duration-300">
+    <img class="w-16 h-16 rounded-full object-cover" src="avatar.jpg" alt="User">
+    <div class="ml-4 flex-1">
+        <h3 class="text-lg font-semibold text-gray-800 truncate">Nguyễn Văn A</h3>
+        <p class="text-sm text-gray-500">Frontend Developer</p>
+    </div>
+    <button class="px-4 py-2 bg-blue-500 text-white rounded-md 
+                   hover:bg-blue-600 focus:ring-2 focus:ring-blue-300">
+        Follow
+    </button>
+</div>
+```
+
+### Giải thích từng class
+
+#### Container
+
+- `flex` → `display: flex`
+- `items-center` → `align-items: center`
+- `justify-between` → `justify-content: space-between`
+- `p-4` → `padding: 1rem (16px)`
+- `bg-white` → `background-color: white`
+- `shadow-md` → đổ bóng mức trung bình
+- `rounded-lg` → bo góc lớn (`border-radius: 0.5rem`)
+- `hover:shadow-xl` → khi hover tăng bóng lên mức XL
+- `transition-shadow` → hiệu ứng chuyển đổi cho thuộc tính shadow
+- `duration-300` → thời gian transition 300ms
+
+---
+
+#### Thẻ ảnh (`img`)
+
+- `w-16` → `width: 4rem (64px)`
+- `h-16` → `height: 4rem (64px)`
+- `rounded-full` → ảnh hình tròn (`border-radius: 9999px`)
+- `object-cover` → ảnh tự cắt để phủ kín khung
+
+---
+
+#### Thẻ div chứa nội dung
+
+- `ml-4` → `margin-left: 1rem (16px)`
+- `flex-1` → `flex: 1 1 0%` (chiếm toàn bộ khoảng trống còn lại)
+
+---
+
+#### Thẻ h3
+
+- `text-lg` → `font-size: 1.125rem (18px)`
+- `font-semibold` → `font-weight: 600`
+- `text-gray-800` → màu chữ xám đậm
+- `truncate` → cắt nội dung dài và hiển thị dấu `...`
+
+Tương đương:
+
+```css
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+```
+
+---
+
+#### Thẻ p
+
+- `text-sm` → `font-size: 0.875rem (14px)`
+- `text-gray-500` → màu chữ xám trung bình
+
+---
+
+#### Button
+
+- `px-4` → `padding-left/right: 1rem (16px)`
+- `py-2` → `padding-top/bottom: 0.5rem (8px)`
+- `bg-blue-500` → nền màu xanh dương mức 500
+- `text-white` → chữ màu trắng
+- `rounded-md` → bo góc vừa (`border-radius: 0.375rem`)
+- `hover:bg-blue-600` → khi hover đổi sang xanh đậm hơn
+- `focus:ring-2` → khi focus xuất hiện viền sáng dày 2px
+- `focus:ring-blue-300` → màu viền focus là xanh mức 300
+
+---
+
+### Kết quả giao diện
+
+```text
+ ----------------------------------------------------
+|  (Avatar)   Nguyễn Văn A                [Follow]   |
+|             Frontend Developer                     |
+ ----------------------------------------------------
+```
+
+#### Đặc điểm
+
+- Layout Flexbox nằm ngang.
+- Avatar hiển thị hình tròn.
+- Thông tin người dùng nằm ở giữa.
+- Nút Follow nằm bên phải.
+- Card có bóng đổ và bo góc.
+- Hover vào card sẽ tăng shadow.
+- Hover vào nút sẽ đổi màu xanh đậm hơn.
+
+
+## Câu A2 (10đ) — Responsive & States
+
+### 1. Giải thích Responsive Prefix
+
+TailwindCSS sử dụng breakpoint prefix để áp dụng CSS theo kích thước màn hình.
+
+| Prefix | Breakpoint | Kích thước |
+|---------|-------------|-------------|
+| `sm:` | Small | ≥ 640px |
+| `md:` | Medium | ≥ 768px |
+| `lg:` | Large | ≥ 1024px |
+| `xl:` | Extra Large | ≥ 1280px |
+| `2xl:` | 2X Large | ≥ 1536px |
+
+---
+
+### Ví dụ
+
+```html
+md:grid-cols-2 lg:grid-cols-4
+```
+
+### Ý nghĩa
+
+- `md:grid-cols-2`
+  → từ màn hình Medium (≥768px), grid có 2 cột.
+
+- `lg:grid-cols-4`
+  → từ màn hình Large (≥1024px), grid có 4 cột.
+
+---
+
+### Minh họa Responsive
+
+#### Mobile (<768px)
+
+```text
+[1 cột]
+```
+
+#### Tablet (≥768px)
+
+```text
+[2 cột]
+```
+
+#### Desktop (≥1024px)
+
+```text
+[4 cột]
+```
+
+---
+
+### Ví dụ hoàn chỉnh
+
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+```
+
+### Kết quả
+
+| Kích thước | Số cột |
+|-------------|---------|
+| Mobile | 1 |
+| Tablet | 2 |
+| Desktop | 4 |
+
+---
+
+## 2. Giải thích State Modifiers
+
+Tailwind hỗ trợ pseudo-class bằng modifier.
+
+---
+
+### `hover:`
+
+Áp dụng khi rê chuột vào phần tử.
+
+Ví dụ:
+
+```html
+<button class="bg-blue-500 hover:bg-blue-700">
+```
+
+Ý nghĩa:
+
+```text
+Bình thường: xanh nhạt
+Hover: xanh đậm
+```
+
+---
+
+### `focus:`
+
+Áp dụng khi phần tử được focus.
+
+Ví dụ:
+
+```html
+<input class="focus:ring-2 focus:ring-blue-400">
+```
+
+Ý nghĩa:
+
+```text
+Khi click/input được chọn sẽ hiện viền sáng.
+```
+
+---
+
+### `active:`
+
+Áp dụng khi phần tử đang được nhấn.
+
+Ví dụ:
+
+```html
+<button class="active:scale-95">
+```
+
+Ý nghĩa:
+
+```text
+Khi nhấn nút sẽ thu nhỏ nhẹ.
+```
+
+---
+
+### `group-hover:`
+
+Cho phép phần tử con thay đổi khi hover phần tử cha.
+
+Ví dụ:
+
+```html
+<div class="group">
+    <p class="group-hover:text-red-500">
+        Text
+    </p>
+</div>
+```
+
+Ý nghĩa:
+
+```text
+Hover vào div cha → text đổi sang màu đỏ.
+```
+
+---
+
+## 3. Class Tailwind tương đương `d-none d-md-flex`
+
+### Bootstrap
+
+```html
+d-none d-md-flex
+```
+
+Ý nghĩa:
+
+```text
+Ẩn trên mobile
+Hiện dạng flex từ tablet trở lên
+```
+
+---
+
+### TailwindCSS tương đương
+
+```html
+hidden md:flex
+```
+
+---
+
+### Giải thích
+
+- `hidden`
+  → `display: none`
+
+- `md:flex`
+  → từ màn hình ≥768px sẽ chuyển thành:
+
+```css
+display: flex;
+```
+
+---
+
+## Kết quả Responsive
+
+| Kích thước | Hiển thị |
+|-------------|-----------|
+| Mobile | Ẩn |
+| Tablet | Flex |
+| Desktop | Flex |
+
+---
+
+## Ví dụ hoàn chỉnh
+
+```html
+<div class="hidden md:flex">
+    Responsive Content
+</div>
+```
+
+### Hoạt động
+
+#### Mobile (<768px)
+
+```text
+[ẨN]
+```
+
+#### Tablet/Desktop (≥768px)
+
+```text
+[Hiển thị dạng Flex]
+```
