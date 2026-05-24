@@ -329,4 +329,322 @@ Tablet/Desktop:
 | `.container-fluid` | 100% chiều rộng | 100% chiều rộng |
 | `.container-md` | 100% chiều rộng | Giống `.container` |
 
-# PHẦN B — THỰC HÀNH (60 điểm)
+
+# Câu C1 (10đ) — Tùy biến Bootstrap
+
+## 1. Đổi màu `$primary` từ xanh mặc định sang `#E63946`
+
+Bootstrap được xây dựng bằng **SASS (SCSS)** và sử dụng các biến để quản lý màu sắc.
+
+### Công cụ cần chuẩn bị
+
+- Node.js
+- Bootstrap Source Files
+- Sass Compiler
+
+Cài Sass:
+
+```bash
+npm install -g sass
+```
+
+Hoặc:
+
+```bash
+npm install sass
+```
+
+---
+
+### Bước 1: Tạo file SCSS
+
+Ví dụ tạo file:
+
+```scss
+// custom.scss
+
+$primary: #E63946;
+
+@import "bootstrap/scss/bootstrap";
+```
+
+---
+
+### Bước 2: Compile SCSS thành CSS
+
+```bash
+sass custom.scss custom.css
+```
+
+Sau khi biên dịch sẽ tạo:
+
+```text
+custom.css
+```
+
+---
+
+### Bước 3: Import CSS vào HTML
+
+```html
+<link rel="stylesheet" href="custom.css">
+```
+
+Lúc này toàn bộ thành phần Bootstrap sử dụng màu Primary sẽ chuyển sang:
+
+```text
+#E63946
+```
+
+Ví dụ:
+
+- btn-primary
+- bg-primary
+- text-primary
+- border-primary
+- alert-primary
+- link-primary
+
+đều tự động đổi màu.
+
+---
+
+## 2. Tại sao KHÔNG nên override trực tiếp?
+
+Ví dụ:
+
+```css
+.btn-primary {
+    background: red;
+}
+```
+
+### Nhược điểm
+
+- Chỉ ảnh hưởng đến `.btn-primary`
+- Không đổi màu cho:
+  - bg-primary
+  - text-primary
+  - alert-primary
+  - border-primary
+  - badge-primary
+- Khó bảo trì khi dự án lớn
+- Dễ xung đột với các bản cập nhật Bootstrap
+
+---
+
+### Ưu điểm của SASS Variables
+
+Ví dụ:
+
+```scss
+$primary: #E63946;
+```
+
+Bootstrap sẽ tự sinh lại toàn bộ hệ thống màu.
+
+Ưu điểm:
+
+- Đồng bộ toàn bộ giao diện
+- Dễ bảo trì
+- Dễ mở rộng
+- Tuân theo kiến trúc Bootstrap
+
+---
+
+### Kết luận
+
+Nên sử dụng:
+
+```scss
+$primary: #E63946;
+```
+
+thay vì:
+
+```css
+.btn-primary {
+    background:red;
+}
+```
+
+vì SASS Variables giúp thay đổi toàn bộ hệ thống màu một cách nhất quán và dễ bảo trì.
+
+---
+
+# Câu C2 (10đ) — So sánh CSS thuần và Bootstrap
+
+## Navbar Responsive bằng CSS thuần
+
+### HTML
+
+```html
+<nav class="navbar">
+    <div class="logo">Shop</div>
+
+    <ul class="menu">
+        <li>Home</li>
+        <li>Products</li>
+        <li>Contact</li>
+    </ul>
+</nav>
+```
+
+### CSS
+
+```css
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#333;
+    color:white;
+    padding:15px;
+}
+
+.menu{
+    display:flex;
+    gap:20px;
+    list-style:none;
+}
+
+@media(max-width:768px){
+    .navbar{
+        flex-direction:column;
+    }
+
+    .menu{
+        flex-direction:column;
+    }
+}
+```
+
+---
+
+## Product Card bằng CSS thuần
+
+### HTML
+
+```html
+<div class="card">
+    <img src="product.jpg">
+
+    <h3>Product</h3>
+
+    <p>Description</p>
+
+    <button>Buy Now</button>
+</div>
+```
+
+### CSS
+
+```css
+.card{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:15px;
+    width:300px;
+}
+
+.card img{
+    width:100%;
+}
+
+.card button{
+    background:#0d6efd;
+    color:white;
+    border:none;
+    padding:10px 20px;
+}
+```
+
+---
+
+## Bootstrap Version
+
+### Navbar
+
+```html
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+```
+
+---
+
+### Product Card
+
+```html
+<div class="card">
+    <img class="card-img-top">
+
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+
+        <p class="card-text"></p>
+
+        <button class="btn btn-primary">
+            Buy Now
+        </button>
+    </div>
+</div>
+```
+
+---
+
+## Bảng so sánh
+
+| Tiêu chí | CSS Thuần | Bootstrap |
+|-----------|-----------|------------|
+| Số dòng CSS cần viết | Nhiều (50-100+ dòng) | Rất ít hoặc không cần |
+| Thời gian phát triển | Chậm hơn | Nhanh hơn |
+| Responsive | Tự viết Media Query | Có sẵn Breakpoints |
+| Component | Tự xây dựng | Có sẵn |
+| Tùy biến giao diện | Cao | Trung bình |
+| Kích thước file | Nhẹ | Nặng hơn |
+
+---
+
+## Khi nào NÊN dùng Bootstrap?
+
+### Nên dùng khi:
+
+- Làm prototype nhanh
+- Dự án nhỏ hoặc vừa
+- Landing Page
+- Dashboard Admin
+- Website doanh nghiệp
+- Deadline ngắn
+- Muốn responsive nhanh
+
+Ví dụ:
+
+```text
+Landing Page
+Portfolio
+Admin Dashboard
+Website bán hàng
+```
+
+---
+
+## Khi nào KHÔNG NÊN dùng Bootstrap?
+
+### Không nên dùng khi:
+
+- Thiết kế UI quá đặc biệt
+- Website yêu cầu nhận diện thương hiệu mạnh
+- Cần tối ưu hiệu năng tối đa
+- Muốn kiểm soát hoàn toàn CSS
+
+Ví dụ:
+
+```text
+Facebook
+Shopee
+YouTube
+Netflix
+Spotify
+```
+
+Các hệ thống lớn thường xây dựng Design System riêng thay vì phụ thuộc hoàn toàn vào Bootstrap.
+
