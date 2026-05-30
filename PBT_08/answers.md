@@ -628,3 +628,255 @@ console.log(product.specs.ram);
 16
 ```
 
+# Câu C1 (10đ) — Refactor Code
+
+## Code sau khi refactor
+
+```javascript
+const processOrders = orders =>
+    orders
+        .filter(({ status, total }) =>
+            status === "completed" && total > 100000
+        )
+        .map(({ id, customer, total }) => ({
+            id,
+            customer,
+            total,
+            discount: total * 0.1,
+            finalTotal: total * 0.9
+        }))
+        .sort((a, b) => b.finalTotal - a.finalTotal);
+```
+
+---
+
+## Những cải tiến đã thực hiện
+
+### 1. Dùng `filter()`
+Lọc các đơn hàng:
+
+```javascript
+status === "completed" && total > 100000
+```
+
+thay cho nhiều câu lệnh `if` lồng nhau.
+
+---
+
+### 2. Dùng `map()`
+Tạo object mới:
+
+```javascript
+{
+    id,
+    customer,
+    total,
+    discount,
+    finalTotal
+}
+```
+
+thay cho:
+
+```javascript
+var item = {};
+item.id = ...
+item.customer = ...
+...
+```
+
+---
+
+### 3. Dùng Destructuring
+
+```javascript
+({ id, customer, total })
+```
+
+thay vì:
+
+```javascript
+orders[i].id
+orders[i].customer
+orders[i].total
+```
+
+---
+
+### 4. Dùng Arrow Function
+
+```javascript
+const processOrders = orders => ...
+```
+
+ngắn gọn hơn Function Declaration truyền thống.
+
+---
+
+### 5. Dùng `sort()`
+
+```javascript
+.sort((a, b) => b.finalTotal - a.finalTotal)
+```
+
+thay cho 2 vòng lặp lồng nhau để sắp xếp giảm dần theo `finalTotal`.
+
+---
+
+## Kết quả
+
+Hàm mới:
+
+- Ngắn gọn hơn (8 dòng)
+- Dễ đọc hơn
+- Không dùng vòng lặp thủ công
+- Tận dụng `filter`, `map`, `sort`, `destructuring`, `arrow function`
+- Cho kết quả giống hệt code ban đầu
+
+# Câu C2 (10đ) — Thiết kế API
+
+## File: miniArray.js
+
+```javascript
+const miniArray = {
+    // Giống Array.prototype.map
+    map(arr, fn) {
+        const result = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            result.push(fn(arr[i], i, arr));
+        }
+
+        return result;
+    },
+
+    // Giống Array.prototype.filter
+    filter(arr, fn) {
+        const result = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            if (fn(arr[i], i, arr)) {
+                result.push(arr[i]);
+            }
+        }
+
+        return result;
+    },
+
+    // Giống Array.prototype.reduce
+    reduce(arr, fn, initialValue) {
+        let accumulator = initialValue;
+
+        for (let i = 0; i < arr.length; i++) {
+            accumulator = fn(
+                accumulator,
+                arr[i],
+                i,
+                arr
+            );
+        }
+
+        return accumulator;
+    }
+};
+
+// ================= TEST =================
+
+console.log(
+    miniArray.map(
+        [1, 2, 3],
+        x => x * 2
+    )
+);
+// [2, 4, 6]
+
+console.log(
+    miniArray.filter(
+        [1, 2, 3, 4],
+        x => x > 2
+    )
+);
+// [3, 4]
+
+console.log(
+    miniArray.reduce(
+        [1, 2, 3, 4],
+        (a, b) => a + b,
+        0
+    )
+);
+// 10
+```
+
+---
+
+## Kết quả mong đợi
+
+```javascript
+[2, 4, 6]
+[3, 4]
+10
+```
+
+---
+
+## Giải thích
+
+### map()
+
+Duyệt qua từng phần tử, áp dụng callback rồi đưa kết quả vào mảng mới.
+
+```javascript
+miniArray.map([1,2,3], x => x * 2)
+```
+
+↓
+
+```javascript
+[2,4,6]
+```
+
+---
+
+### filter()
+
+Chỉ giữ lại những phần tử mà callback trả về `true`.
+
+```javascript
+miniArray.filter([1,2,3,4], x => x > 2)
+```
+
+↓
+
+```javascript
+[3,4]
+```
+
+---
+
+### reduce()
+
+Gộp toàn bộ mảng thành một giá trị duy nhất.
+
+```javascript
+miniArray.reduce(
+    [1,2,3,4],
+    (a,b) => a + b,
+    0
+)
+```
+
+Quá trình:
+
+```text
+0 + 1 = 1
+1 + 2 = 3
+3 + 3 = 6
+6 + 4 = 10
+```
+
+↓
+
+```javascript
+10
+```
