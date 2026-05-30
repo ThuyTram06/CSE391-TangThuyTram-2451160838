@@ -1013,3 +1013,295 @@ Kết quả:
 ```txt
 Xin chào Trâm! Bạn 20 tuổi.
 ```
+
+# Câu C1 - Debug JavaScript
+
+## Code gốc
+
+```js
+function tinhGiaGiamGia(giaBan, phanTramGiam) {
+    if (phanTramGiam < 0 || phanTramGiam > 100) {
+        return "Phần trăm giảm không hợp lệ"
+    }
+    
+    var giamGia = giaBan * phanTramGiam / 100
+    let giaSauGiam = giaBan - giamGia
+    
+    if (giaSauGiam = 0) {
+        console.log("Sản phẩm miễn phí!")
+    }
+    
+    return giaSauGiam
+}
+
+// Test
+const gia = tinhGiaGiamGia("100000", 20)
+console.log("Giá sau giảm: " + gia + "đ")
+
+const gia2 = tinhGiaGiamGia(50000, 110)
+console.log("Giá: " + gia2)
+
+for (var i = 0; i < 5; i++) {
+    setTimeout(function() {
+        console.log("Item " + i)
+    }, 1000)
+}
+```
+
+---
+
+# Các lỗi và cách sửa
+
+## Lỗi 1: Dùng phép gán (=) thay vì so sánh (===)
+
+### Sai
+
+```js
+if (giaSauGiam = 0)
+```
+
+### Đúng
+
+```js
+if (giaSauGiam === 0)
+```
+
+### Giải thích
+
+Dấu `=` là phép gán giá trị.
+
+```js
+giaSauGiam = 0
+```
+
+sẽ gán giá trị 0 cho biến và điều kiện luôn trả về `false`.
+
+Muốn kiểm tra bằng 0 phải dùng:
+
+```js
+giaSauGiam === 0
+```
+
+---
+
+## Lỗi 2: Không kiểm tra kiểu dữ liệu của giá bán
+
+### Sai
+
+```js
+const gia = tinhGiaGiamGia("100000", 20)
+```
+
+`giaBan` đang là chuỗi (`string`).
+
+### Cách sửa
+
+```js
+if (typeof giaBan !== "number" || isNaN(giaBan)) {
+    return "Giá bán không hợp lệ";
+}
+```
+
+### Giải thích
+
+Giá bán nên là số để đảm bảo tính toán chính xác.
+
+---
+
+## Lỗi 3: Không kiểm tra kiểu dữ liệu của phần trăm giảm
+
+### Thiếu
+
+```js
+typeof phanTramGiam !== "number"
+```
+
+### Cách sửa
+
+```js
+if (
+    typeof phanTramGiam !== "number" ||
+    isNaN(phanTramGiam)
+) {
+    return "Phần trăm giảm không hợp lệ";
+}
+```
+
+### Giải thích
+
+Người dùng có thể nhập chuỗi hoặc dữ liệu không hợp lệ.
+
+---
+
+## Lỗi 4: Dùng var thay vì const cho biến không thay đổi
+
+### Sai
+
+```js
+var giamGia = giaBan * phanTramGiam / 100
+```
+
+### Đúng
+
+```js
+const giamGia = giaBan * phanTramGiam / 100
+```
+
+### Giải thích
+
+`giamGia` không bị gán lại nên nên dùng `const`.
+
+---
+
+## Lỗi 5: Thiếu dấu chấm phẩy (;)
+
+### Ví dụ
+
+```js
+return "Phần trăm giảm không hợp lệ"
+```
+
+### Nên viết
+
+```js
+return "Phần trăm giảm không hợp lệ";
+```
+
+### Giải thích
+
+JavaScript có cơ chế tự chèn dấu `;`, nhưng việc viết rõ ràng giúp tránh lỗi và tăng khả năng đọc code.
+
+---
+
+## Lỗi 6: Lỗi ẩn với var trong vòng lặp
+
+### Sai
+
+```js
+for (var i = 0; i < 5; i++) {
+    setTimeout(function() {
+        console.log("Item " + i)
+    }, 1000)
+}
+```
+
+### Kết quả thực tế
+
+```txt
+Item 5
+Item 5
+Item 5
+Item 5
+Item 5
+```
+
+### Nguyên nhân
+
+`var` có phạm vi function scope.
+
+Sau khi vòng lặp kết thúc:
+
+```js
+i = 5
+```
+
+Tất cả callback của `setTimeout()` đều tham chiếu đến cùng một biến `i`.
+
+Khi callback chạy sau 1 giây thì giá trị của `i` đã là 5.
+
+---
+
+## Cách sửa
+
+```js
+for (let i = 0; i < 5; i++) {
+    setTimeout(function() {
+        console.log("Item " + i);
+    }, 1000);
+}
+```
+
+### Kết quả
+
+```txt
+Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+```
+
+### Giải thích
+
+`let` có block scope.
+
+Mỗi lần lặp sẽ tạo một biến `i` riêng nên callback giữ đúng giá trị tại thời điểm được tạo.
+
+---
+
+## Lỗi 7: Hàm có thể trả về chuỗi hoặc số
+
+### Ví dụ
+
+```js
+return giaSauGiam;
+```
+
+hoặc
+
+```js
+return "Phần trăm giảm không hợp lệ";
+```
+
+### Giải thích
+
+Hàm trả về nhiều kiểu dữ liệu khác nhau (`number` hoặc `string`) làm việc xử lý sau này khó khăn hơn.
+
+Nên thống nhất kiểu dữ liệu hoặc dùng object chứa thông tin lỗi.
+
+---
+
+# Phiên bản đã sửa
+
+```js
+function tinhGiaGiamGia(giaBan, phanTramGiam) {
+    if (
+        typeof giaBan !== "number" ||
+        isNaN(giaBan)
+    ) {
+        return "Giá bán không hợp lệ";
+    }
+
+    if (
+        typeof phanTramGiam !== "number" ||
+        isNaN(phanTramGiam) ||
+        phanTramGiam < 0 ||
+        phanTramGiam > 100
+    ) {
+        return "Phần trăm giảm không hợp lệ";
+    }
+
+    const giamGia = giaBan * phanTramGiam / 100;
+    const giaSauGiam = giaBan - giamGia;
+
+    if (giaSauGiam === 0) {
+        console.log("Sản phẩm miễn phí!");
+    }
+
+    return giaSauGiam;
+}
+
+// Test
+const gia = tinhGiaGiamGia(100000, 20);
+console.log("Giá sau giảm: " + gia + "đ");
+
+const gia2 = tinhGiaGiamGia(50000, 110);
+console.log("Giá: " + gia2);
+
+for (let i = 0; i < 5; i++) {
+    setTimeout(function () {
+        console.log("Item " + i);
+    }, 1000);
+}
+```
+
