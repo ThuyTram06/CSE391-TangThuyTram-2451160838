@@ -1278,3 +1278,485 @@ Callback Hell
 
 Async/Await là cách hiện đại và dễ đọc nhất để xử lý bất đồng bộ trong JavaScript.
 
+# Câu C1 — Error Handling Strategy cho E-Commerce App
+
+Trong ứng dụng E-Commerce, lỗi API là điều thường xuyên xảy ra. Cần có chiến lược xử lý phù hợp để đảm bảo trải nghiệm người dùng không bị gián đoạn.
+
+---
+
+# 1. Network Errors (Mất mạng giữa chừng)
+
+## Nguyên nhân
+
+- Mất kết nối Internet
+- DNS lỗi
+- WiFi bị ngắt
+- Server không thể truy cập
+
+Ví dụ:
+
+```js
+fetch("https://api.shop.com/products");
+```
+
+Nếu mất mạng:
+
+```txt
+TypeError: Failed to fetch
+```
+
+---
+
+## Cách xử lý
+
+### UI
+
+- Hiển thị thông báo:
+
+```txt
+Không có kết nối Internet
+```
+
+- Hiện nút:
+
+```txt
+Thử lại
+```
+
+- Không làm ứng dụng bị crash
+
+---
+
+### Code
+
+```js
+try {
+
+    const response =
+        await fetch(url);
+
+} catch (error) {
+
+    showError(
+        "Không có kết nối mạng"
+    );
+
+}
+```
+
+---
+
+# 2. API Errors
+
+API trả response nhưng status không thành công.
+
+---
+
+## 404 Not Found
+
+### Nguyên nhân
+
+URL sai hoặc tài nguyên không tồn tại.
+
+Ví dụ:
+
+```txt
+GET /products/99999
+```
+
+Server:
+
+```txt
+404 Not Found
+```
+
+---
+
+### Xử lý
+
+```js
+if(response.status === 404){
+
+    showError(
+        "Không tìm thấy sản phẩm"
+    );
+}
+```
+
+---
+
+## 500 Internal Server Error
+
+### Nguyên nhân
+
+Lỗi phía server.
+
+Ví dụ:
+
+```txt
+500 Internal Server Error
+```
+
+---
+
+### Xử lý
+
+```js
+if(response.status === 500){
+
+    showError(
+        "Hệ thống đang bảo trì"
+    );
+}
+```
+
+---
+
+## 429 Too Many Requests
+
+### Nguyên nhân
+
+Gửi quá nhiều request trong thời gian ngắn.
+
+Ví dụ:
+
+```txt
+429 Too Many Requests
+```
+
+---
+
+### Xử lý
+
+```js
+if(response.status === 429){
+
+    showError(
+        "Quá nhiều yêu cầu, vui lòng thử lại sau"
+    );
+}
+```
+
+Có thể kết hợp:
+
+```txt
+Retry After
+```
+
+nếu API cung cấp header này.
+
+---
+
+# Hàm xử lý API Error
+
+```js
+async function fetchData(url){
+
+    const response =
+        await fetch(url);
+
+    if(!response.ok){
+
+        switch(response.status){
+
+            case 404:
+                throw new Error(
+                    "Không tìm thấy dữ liệu"
+                );
+
+            case 429:
+                throw new Error(
+                    "Quá nhiều yêu cầu"
+                );
+
+            case 500:
+                throw new Error(
+                    "Lỗi máy chủ"
+                );
+
+            default:
+                throw new Error(
+                    `HTTP ${response.status}`
+                );
+        }
+    }
+
+    return response.json();
+}
+```
+
+---
+
+# 3. Timeout (> 10 giây)
+
+## Vấn đề
+
+Một số API không lỗi nhưng phản hồi quá chậm.
+
+Ví dụ:
+
+```txt
+20 giây mới trả dữ liệu
+```
+
+Người dùng nghĩ ứng dụng bị treo.
+
+---
+
+## Giải pháp
+
+Đặt timeout.
+
+Nếu quá:
+
+```txt
+10 giây
+```
+
+→ Hủy request.
+
+---
+
+# fetchWithTimeout()
+
+```js
+async function fetchWithTimeout(
+    url,
+    ms = 10000
+){
+
+    const controller =
+        new AbortController();
+
+    const timeoutId =
+        setTimeout(() => {
+
+            controller.abort();
+
+        }, ms);
+
+    try{
+
+        const response =
+            await fetch(url,{
+                signal:
+                    controller.signal
+            });
+
+        clearTimeout(timeoutId);
+
+        return response;
+
+    }catch(error){
+
+        if(error.name === "AbortError"){
+
+            throw new Error(
+                "Request timeout"
+            );
+        }
+
+        throw error;
+    }
+}
+```
+
+---
+
+## Sử dụng
+
+```js
+try{
+
+    const response =
+        await fetchWithTimeout(
+            "/products",
+            10000
+        );
+
+}catch(error){
+
+    console.log(
+        error.message
+    );
+}
+```
+
+---
+
+# 4. Retry Logic
+
+## Khi nào nên Retry?
+
+Nên retry:
+
+```txt
+Network Error
+Timeout
+503 Service Unavailable
+```
+
+---
+
+Không nên retry:
+
+```txt
+404 Not Found
+401 Unauthorized
+400 Bad Request
+```
+
+vì retry cũng không thành công.
+
+---
+
+# fetchWithRetry()
+
+```js
+async function fetchWithRetry(
+    url,
+    maxRetries = 3
+){
+
+    let attempt = 0;
+
+    while(attempt < maxRetries){
+
+        try{
+
+            const response =
+                await fetch(url);
+
+            if(!response.ok){
+
+                throw new Error(
+                    `HTTP ${response.status}`
+                );
+            }
+
+            return response;
+
+        }catch(error){
+
+            attempt++;
+
+            console.log(
+                `Retry ${attempt}/${maxRetries}`
+            );
+
+            if(attempt >= maxRetries){
+
+                throw error;
+            }
+
+            await new Promise(resolve =>
+                setTimeout(
+                    resolve,
+                    1000
+                )
+            );
+        }
+    }
+}
+```
+
+---
+
+## Sử dụng
+
+```js
+try{
+
+    const response =
+        await fetchWithRetry(
+            "/products",
+            3
+        );
+
+    const data =
+        await response.json();
+
+}catch(error){
+
+    console.error(
+        "Thất bại sau 3 lần thử"
+    );
+}
+```
+
+---
+
+# Retry với Exponential Backoff
+
+Tốt hơn retry cố định.
+
+Ví dụ:
+
+```txt
+Lần 1 → chờ 1s
+Lần 2 → chờ 2s
+Lần 3 → chờ 4s
+```
+
+---
+
+```js
+await new Promise(resolve =>
+    setTimeout(
+        resolve,
+        Math.pow(2, attempt) * 1000
+    )
+);
+```
+
+---
+
+# Chiến lược hoàn chỉnh cho E-Commerce
+
+| Loại lỗi | Xử lý |
+|-----------|--------|
+| Network Error | Hiện "Mất kết nối mạng", cho phép Retry |
+| 404 | Hiện "Không tìm thấy dữ liệu" |
+| 500 | Hiện "Hệ thống đang bảo trì" |
+| 429 | Hiện "Quá nhiều yêu cầu, thử lại sau" |
+| Timeout | Hủy request sau 10 giây |
+| Temporary Error | Retry tối đa 3 lần |
+| Retry thất bại | Hiện thông báo lỗi cuối cùng |
+
+---
+
+# Luồng xử lý đề xuất
+
+```text
+User Request
+      ↓
+    Fetch
+      ↓
+Network Error?
+      ↓
+     Yes
+      ↓
+ Retry tối đa 3 lần
+      ↓
+ Thành công?
+   /      \
+ Yes      No
+  ↓        ↓
+Render   Thông báo lỗi
+
+      ↓
+Response OK?
+   /      \
+ Yes      No
+  ↓        ↓
+Render   Xử lý 404/429/500
+
+      ↓
+Timeout > 10s ?
+      ↓
+     Yes
+      ↓
+Abort Request
+      ↓
+Hiện lỗi Timeout
+```
