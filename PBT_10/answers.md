@@ -1760,3 +1760,482 @@ Abort Request
       ↓
 Hiện lỗi Timeout
 ```
+
+# Câu C2 — Promise.all vs Promise.allSettled vs Promise.race vs Promise.any
+
+## So sánh nhanh
+
+| Method | Khi nào resolve? | Khi nào reject? | Use Case |
+|----------|----------------|----------------|-----------|
+| Promise.all() | Tất cả Promise thành công | Chỉ cần 1 Promise lỗi | Cần toàn bộ dữ liệu mới render |
+| Promise.allSettled() | Khi tất cả Promise hoàn thành (thành công hoặc lỗi) | Không reject | Dashboard nhiều widget độc lập |
+| Promise.race() | Promise đầu tiên hoàn thành (resolve hoặc reject) | Nếu Promise đầu tiên reject | Timeout, chọn server phản hồi nhanh nhất |
+| Promise.any() | Promise đầu tiên resolve | Khi tất cả Promise đều reject | Tìm nguồn dữ liệu khả dụng đầu tiên |
+
+---
+
+# 1. Promise.all()
+
+## Cách hoạt động
+
+```text
+A ✓
+B ✓
+C ✓
+↓
+Resolve
+```
+
+---
+
+Nếu có 1 Promise lỗi:
+
+```text
+A ✓
+B ✗
+C ✓
+↓
+Reject ngay lập tức
+```
+
+---
+
+## Ví dụ thực tế
+
+### Trang Product Detail
+
+Khi mở trang sản phẩm cần:
+
+- Thông tin sản phẩm
+- Reviews
+- Sản phẩm liên quan
+
+Nếu thiếu một phần thì không render.
+
+```js
+async function loadProductPage(id){
+
+    try{
+
+        const [
+            product,
+            reviews,
+            related
+        ] = await Promise.all([
+
+            fetch(`/products/${id}`)
+                .then(r => r.json()),
+
+            fetch(`/products/${id}/reviews`)
+                .then(r => r.json()),
+
+            fetch(`/products/${id}/related`)
+                .then(r => r.json())
+        ]);
+
+        renderPage(
+            product,
+            reviews,
+            related
+        );
+
+    }catch(error){
+
+        showError(
+            "Không thể tải trang sản phẩm"
+        );
+
+    }
+}
+```
+
+---
+
+## Khi nên dùng
+
+✅ Tất cả dữ liệu đều bắt buộc
+
+Ví dụ:
+
+```text
+Checkout
+Product Page
+User Profile
+```
+
+---
+
+# 2. Promise.allSettled()
+
+## Cách hoạt động
+
+```text
+A ✓
+B ✗
+C ✓
+↓
+Vẫn resolve
+```
+
+---
+
+Kết quả:
+
+```js
+[
+  {
+    status: "fulfilled",
+    value: ...
+  },
+  {
+    status: "rejected",
+    reason: ...
+  }
+]
+```
+
+---
+
+## Ví dụ thực tế
+
+### Dashboard
+
+Có 3 widget:
+
+- Weather
+- News
+- Stock
+
+Nếu Weather lỗi vẫn muốn hiển thị News và Stock.
+
+```js
+async function loadDashboard(){
+
+    const results =
+        await Promise.allSettled([
+
+            fetch("/weather")
+                .then(r => r.json()),
+
+            fetch("/news")
+                .then(r => r.json()),
+
+            fetch("/stocks")
+                .then(r => r.json())
+        ]);
+
+    results.forEach(
+        (result,index) => {
+
+            if(
+                result.status
+                === "fulfilled"
+            ){
+
+                renderWidget(
+                    index,
+                    result.value
+                );
+
+            }else{
+
+                renderWidgetError(
+                    index,
+                    result.reason.message
+                );
+            }
+        }
+    );
+}
+```
+
+---
+
+## Khi nên dùng
+
+✅ Dashboard
+
+✅ Analytics
+
+✅ Widget độc lập
+
+✅ Trang tổng hợp dữ liệu
+
+---
+
+# 3. Promise.race()
+
+## Cách hoạt động
+
+Promise nào hoàn thành đầu tiên sẽ quyết định kết quả.
+
+```text
+A (1s)
+B (3s)
+C (5s)
+
+↓
+Resolve A
+```
+
+---
+
+Nếu Promise đầu tiên lỗi:
+
+```text
+A reject (1s)
+B resolve (3s)
+
+↓
+Reject
+```
+
+---
+
+## Ví dụ thực tế 1: Timeout
+
+Nếu API quá 10 giây thì hủy.
+
+```js
+function fetchWithTimeout(url){
+
+    return Promise.race([
+
+        fetch(url),
+
+        new Promise((_,reject)=>{
+
+            setTimeout(() => {
+
+                reject(
+                    new Error(
+                        "Timeout"
+                    )
+                );
+
+            },10000);
+
+        })
+    ]);
+}
+```
+
+---
+
+## Ví dụ thực tế 2: Chọn CDN nhanh nhất
+
+```js
+const image = await Promise.race([
+
+    fetch("https://cdn1.com/logo.png"),
+
+    fetch("https://cdn2.com/logo.png"),
+
+    fetch("https://cdn3.com/logo.png")
+]);
+```
+
+Server nào phản hồi trước sẽ được dùng.
+
+---
+
+## Khi nên dùng
+
+✅ Timeout
+
+✅ CDN
+
+✅ Mirror Server
+
+✅ API dự phòng
+
+---
+
+# 4. Promise.any()
+
+## Cách hoạt động
+
+Chỉ cần Promise đầu tiên thành công.
+
+```text
+A ✗
+B ✗
+C ✓
+
+↓
+Resolve C
+```
+
+---
+
+Chỉ reject khi:
+
+```text
+A ✗
+B ✗
+C ✗
+
+↓
+Reject
+```
+
+---
+
+## Ví dụ thực tế
+
+### Lấy avatar từ nhiều nguồn
+
+```js
+const avatar =
+    await Promise.any([
+
+        fetch(
+            "https://cdn1.com/avatar.jpg"
+        ),
+
+        fetch(
+            "https://cdn2.com/avatar.jpg"
+        ),
+
+        fetch(
+            "https://cdn3.com/avatar.jpg"
+        )
+    ]);
+```
+
+Nếu:
+
+```text
+cdn1 lỗi
+cdn2 lỗi
+cdn3 thành công
+```
+
+→ Vẫn lấy được ảnh.
+
+---
+
+## Ví dụ thực tế
+
+### Tìm API khả dụng
+
+```js
+const data =
+    await Promise.any([
+
+        fetch(
+            "https://server-a/api"
+        ),
+
+        fetch(
+            "https://server-b/api"
+        ),
+
+        fetch(
+            "https://server-c/api"
+        )
+    ]);
+```
+
+Server nào hoạt động trước sẽ được dùng.
+
+---
+
+## Khi nên dùng
+
+✅ Fallback Servers
+
+✅ Multi-CDN
+
+✅ Mirror APIs
+
+✅ High Availability Systems
+
+---
+
+# Minh họa trực quan
+
+## Promise.all()
+
+```text
+A ✓
+B ✓
+C ✓
+↓
+SUCCESS
+
+A ✓
+B ✗
+C ✓
+↓
+FAIL
+```
+
+---
+
+## Promise.allSettled()
+
+```text
+A ✓
+B ✗
+C ✓
+↓
+[
+ Success,
+ Error,
+ Success
+]
+```
+
+---
+
+## Promise.race()
+
+```text
+A (1s)
+B (5s)
+C (3s)
+
+↓
+A thắng
+```
+
+---
+
+## Promise.any()
+
+```text
+A ✗
+B ✗
+C ✓
+
+↓
+C thắng
+```
+
+---
+
+# Kết luận
+
+| Method | Mục đích chính |
+|----------|---------------|
+| Promise.all() | Cần tất cả dữ liệu |
+| Promise.allSettled() | Thu thập kết quả của tất cả Promise |
+| Promise.race() | Lấy Promise hoàn thành đầu tiên |
+| Promise.any() | Lấy Promise thành công đầu tiên |
+
+### Quy tắc nhớ nhanh
+
+```text
+all()
+→ Tất cả phải thành công
+
+allSettled()
+→ Thành công hay thất bại đều lấy kết quả
+
+race()
+→ Ai về đích trước thắng
+
+any()
+→ Ai thành công trước thắng
+```
