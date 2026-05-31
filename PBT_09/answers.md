@@ -322,3 +322,203 @@ Thư viện DOMPurify sẽ loại bỏ các đoạn mã nguy hiểm.
 - Dữ liệu từ người dùng **không nên đưa trực tiếp vào innerHTML**.
 - Sử dụng `textContent` hoặc thư viện sanitize như DOMPurify để tránh XSS.
 - Với dữ liệu người dùng nhập vào, `textContent` là lựa chọn an toàn nhất.
+
+# Câu A3 - Event Bubbling
+
+## Code
+
+```js
+document.querySelector("#outer").addEventListener("click", () => {
+    console.log("OUTER");
+});
+
+document.querySelector("#inner").addEventListener("click", () => {
+    console.log("INNER");
+});
+
+document.querySelector("#btn").addEventListener("click", (e) => {
+    console.log("BUTTON");
+    // e.stopPropagation();
+});
+```
+
+```html
+<div id="outer">
+    <div id="inner">
+        <button id="btn">Click me</button>
+    </div>
+</div>
+```
+
+---
+
+# Trường hợp 1: Không dùng stopPropagation()
+
+Khi click vào button:
+
+```txt
+BUTTON
+INNER
+OUTER
+```
+
+---
+
+## Giải thích
+
+JavaScript sử dụng cơ chế Event Bubbling.
+
+Sự kiện bắt đầu tại phần tử được click trước:
+
+```txt
+button
+```
+
+sau đó nổi bọt (bubble) lên các phần tử cha:
+
+```txt
+button
+→ inner
+→ outer
+→ document
+```
+
+Thứ tự thực thi:
+
+### 1. Button
+
+```js
+console.log("BUTTON");
+```
+
+In:
+
+```txt
+BUTTON
+```
+
+---
+
+### 2. Inner
+
+```js
+console.log("INNER");
+```
+
+In:
+
+```txt
+INNER
+```
+
+---
+
+### 3. Outer
+
+```js
+console.log("OUTER");
+```
+
+In:
+
+```txt
+OUTER
+```
+
+---
+
+## Sơ đồ
+
+```text
+outer
+└── inner
+    └── button ← click
+
+BUTTON
+   ↑
+INNER
+   ↑
+OUTER
+```
+
+---
+
+# Trường hợp 2: Bỏ comment stopPropagation()
+
+Code:
+
+```js
+document.querySelector("#btn").addEventListener("click", (e) => {
+    console.log("BUTTON");
+    e.stopPropagation();
+});
+```
+
+---
+
+## Output
+
+```txt
+BUTTON
+```
+
+---
+
+## Giải thích
+
+`stopPropagation()` ngăn sự kiện tiếp tục nổi bọt lên các phần tử cha.
+
+Quá trình:
+
+```text
+button
+✖ inner
+✖ outer
+```
+
+Sau khi chạy:
+
+```js
+e.stopPropagation();
+```
+
+sự kiện dừng ngay tại button.
+
+Vì vậy:
+
+```txt
+BUTTON
+```
+
+được in ra và kết thúc.
+
+---
+
+# So sánh
+
+| Trường hợp | Output |
+|------------|---------|
+| Không dùng `stopPropagation()` | `BUTTON → INNER → OUTER` |
+| Có `stopPropagation()` | `BUTTON` |
+
+---
+
+# Kết luận
+
+Khi click button:
+
+### Không dùng stopPropagation()
+
+```txt
+BUTTON
+INNER
+OUTER
+```
+
+### Có stopPropagation()
+
+```txt
+BUTTON
+```
+
+`stopPropagation()` được dùng khi muốn phần tử con xử lý sự kiện mà không cho các phần tử cha nhận được sự kiện đó.
