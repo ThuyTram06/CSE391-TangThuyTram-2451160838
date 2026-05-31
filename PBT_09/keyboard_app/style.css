@@ -1,0 +1,95 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    padding:30px;
+}
+
+.gallery{
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+}
+
+.gallery img{
+    width:100%;
+    border-radius:10px;
+}
+
+.controls{
+    margin-top:15px;
+}
+
+button{
+    padding:10px 15px;
+    cursor:pointer;
+    margin:5px;
+}
+
+button:focus,
+input:focus{
+    outline:3px solid #007bff;
+    outline-offset:2px;
+}
+
+.thumbnail-list{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.thumbnail{
+    width:80px;
+    cursor:pointer;
+    border:2px solid transparent;
+}
+
+.thumbnail.active{
+    border-color:#007bff;
+}
+
+.modal,
+.palette-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.hidden{
+    display:none;
+}
+
+.modal-content,
+.palette{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+.palette{
+    width:500px;
+}
+
+.palette input{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+.command-item{
+    padding:10px;
+    cursor:pointer;
+}
+
+.command-item:hover{
+    background:#eee;
+}
