@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    color:#222;
+    transition:.3s;
+}
+
+body.dark-mode{
+    background:#1e1e1e;
+    color:white;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.topbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+input,select,button{
+    padding:10px;
+}
+
+.categories{
+    margin-bottom:20px;
+}
+
+.categories button{
+    margin-right:5px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.dark-mode .card{
+    background:#2d2d2d;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+}
+
+.card-body{
+    padding:15px;
+}
+
+.price{
+    color:red;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.badge-cart{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:red;
+    color:white;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    width:400px;
+}
+
+.dark-mode .modal-content{
+    background:#2d2d2d;
+}
+
+.hidden{
+    display:none;
+}
