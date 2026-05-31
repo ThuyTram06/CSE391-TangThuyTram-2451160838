@@ -925,3 +925,356 @@ catch
       ↓
 return null
 ```
+
+# Câu A3 - Promise States
+
+## Sơ đồ 3 trạng thái của Promise
+
+```text
+                Promise
+                   |
+                   |
+               Pending
+          (đang chờ xử lý)
+             /         \
+            /           \
+           /             \
+ Fulfilled               Rejected
+(thành công)             (thất bại)
+
+resolve(value)       reject(error)
+```
+
+---
+
+## Ý nghĩa các trạng thái
+
+### 1. Pending
+
+Trạng thái ban đầu.
+
+Promise đang thực hiện công việc nhưng chưa có kết quả.
+
+Ví dụ:
+
+```js
+const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Done");
+    }, 3000);
+});
+```
+
+Trong 3 giây đầu:
+
+```text
+Pending
+```
+
+---
+
+### 2. Fulfilled
+
+Công việc thành công.
+
+Gọi:
+
+```js
+resolve(...)
+```
+
+Ví dụ:
+
+```js
+resolve("Success");
+```
+
+Promise chuyển sang:
+
+```text
+Fulfilled
+```
+
+---
+
+### 3. Rejected
+
+Công việc thất bại.
+
+Gọi:
+
+```js
+reject(...)
+```
+
+Ví dụ:
+
+```js
+reject("Error");
+```
+
+Promise chuyển sang:
+
+```text
+Rejected
+```
+
+---
+
+## Ví dụ hoàn chỉnh
+
+```js
+const promise = new Promise((resolve, reject) => {
+
+    const success = true;
+
+    if (success) {
+        resolve("OK");
+    } else {
+        reject("FAILED");
+    }
+
+});
+
+promise
+    .then(result => {
+        console.log(result);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+```
+
+---
+
+# Callback Hell là gì?
+
+Callback Hell xảy ra khi callback lồng callback quá nhiều tầng.
+
+Code bị:
+
+- Khó đọc
+- Khó debug
+- Khó bảo trì
+- Dễ sinh lỗi
+
+Thường gọi là:
+
+```text
+Pyramid of Doom
+```
+
+vì code bị lệch sang phải liên tục.
+
+---
+
+## Ví dụ Callback Hell (4 cấp)
+
+```js
+loginUser(function(user) {
+
+    getProfile(user.id, function(profile) {
+
+        getOrders(profile.id, function(orders) {
+
+            getPayment(orders[0].id, function(payment) {
+
+                console.log(payment);
+
+            });
+
+        });
+
+    });
+
+});
+```
+
+Nhìn sẽ thành:
+
+```text
+login
+ └─ profile
+     └─ orders
+         └─ payment
+```
+
+Code càng dài càng khó đọc.
+
+---
+
+# Refactor bằng Promise
+
+```js
+loginUser()
+    .then(user => {
+        return getProfile(user.id);
+    })
+    .then(profile => {
+        return getOrders(profile.id);
+    })
+    .then(orders => {
+        return getPayment(orders[0].id);
+    })
+    .then(payment => {
+        console.log(payment);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+Đã dễ đọc hơn.
+
+---
+
+# Refactor bằng async/await
+
+```js
+async function processUser() {
+
+    try {
+
+        const user =
+            await loginUser();
+
+        const profile =
+            await getProfile(user.id);
+
+        const orders =
+            await getOrders(profile.id);
+
+        const payment =
+            await getPayment(
+                orders[0].id
+            );
+
+        console.log(payment);
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+
+processUser();
+```
+
+---
+
+## So sánh
+
+### Callback Hell
+
+```js
+a(function() {
+    b(function() {
+        c(function() {
+            d(function() {
+
+            });
+        });
+    });
+});
+```
+
+---
+
+### Promise
+
+```js
+a()
+.then(() => b())
+.then(() => c())
+.then(() => d());
+```
+
+---
+
+### Async/Await
+
+```js
+await a();
+await b();
+await c();
+await d();
+```
+
+---
+
+# Ưu điểm của async/await
+
+### Dễ đọc
+
+Giống code đồng bộ:
+
+```js
+const user = await loginUser();
+const profile = await getProfile(user.id);
+```
+
+---
+
+### Dễ debug
+
+Có thể dùng:
+
+```js
+try {
+    ...
+} catch (error) {
+    ...
+}
+```
+
+---
+
+### Tránh Callback Hell
+
+Không còn:
+
+```text
+((((callback))))
+```
+
+lồng nhau nhiều tầng.
+
+---
+
+# Kết luận
+
+## Promise có 3 trạng thái
+
+```text
+Pending
+   |
+   +---- resolve() ----> Fulfilled
+
+   |
+   +---- reject() -----> Rejected
+```
+
+## Callback Hell
+
+```text
+Callback
+ └─ Callback
+     └─ Callback
+         └─ Callback
+```
+
+Gây code khó đọc và khó bảo trì.
+
+## Giải pháp
+
+```text
+Callback Hell
+        ↓
+    Promise
+        ↓
+   Async/Await
+```
+
+Async/Await là cách hiện đại và dễ đọc nhất để xử lý bất đồng bộ trong JavaScript.
+
